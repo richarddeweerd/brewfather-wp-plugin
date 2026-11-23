@@ -1,0 +1,39 @@
+/* Brew Log for Brewfather: light styling that inherits the theme's fonts and colours. */
+.blfb-table {
+	width: 100%;
+	border-collapse: collapse;
+	margin: 0 0 1.5em;
+}
+.blfb-table th,
+.blfb-table td {
+	padding: 0.4em 0.6em;
+	text-align: left;
+	border-bottom: 1px solid rgba(127, 127, 127, 0.3);
+	vertical-align: top;
+}
+.blfb-details {
+	display: grid;
+	grid-template-columns: max-content 1fr;
+	gap: 0.3em 1.2em;
+	margin: 0 0 1.5em;
+}
+.blfb-details dt {
+	font-weight: 600;
+}
+.blfb-details dd {
+	margin: 0;
+}
+.blfb-error {
+	padding: 0.6em 0.8em;
+	border-left: 4px solid #d63638;
+	background: rgba(214, 54, 56, 0.08);
+}
+.blfb-notice {
+	opacity: 0.8;
+}
+@media (max-width: 600px) {
+	.blfb-table {
+		display: block;
+		overflow-x: auto;
+	}
+}

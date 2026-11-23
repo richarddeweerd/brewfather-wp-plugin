@@ -36,7 +36,7 @@ final class Plugin {
 			Settings::init();
 		}
 
-		// Feature modules (shortcodes) register here.
+		Frontend::init();
 	}
 
 	/**

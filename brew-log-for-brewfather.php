@@ -25,6 +25,8 @@ require_once BLFB_PLUGIN_DIR . 'includes/class-cache.php';
 require_once BLFB_PLUGIN_DIR . 'includes/class-api-client.php';
 require_once BLFB_PLUGIN_DIR . 'includes/class-access.php';
 require_once BLFB_PLUGIN_DIR . 'includes/class-settings.php';
+require_once BLFB_PLUGIN_DIR . 'includes/class-catalog.php';
+require_once BLFB_PLUGIN_DIR . 'includes/class-frontend.php';
 require_once BLFB_PLUGIN_DIR . 'includes/class-plugin.php';
 
 register_activation_hook( __FILE__, array( 'BrewLogForBrewfather\Plugin', 'activate' ) );

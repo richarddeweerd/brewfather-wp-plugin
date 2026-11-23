@@ -28,7 +28,10 @@ function reset_wp() {
 		),
 		'users'      => array(), // ID => role name.
 		'current'    => 0,       // Current user ID; 0 is a Visitor.
+		'filters'    => array(), // Hook name => list of callbacks.
+		'url'        => 'https://example.test/brews/', // Current page URL.
 	);
+	$_GET = array();
 	$GLOBALS['blfb_test']['role_names'] = new stdClass();
 	$GLOBALS['blfb_test']['role_names']->role_names = array();
 }
@@ -140,6 +143,87 @@ function checked( $checked, $current = true, $echo = true ) {
 	return (string) $checked === (string) $current ? ' checked=\'checked\'' : '';
 }
 
+function esc_html( $text ) {
+	return htmlspecialchars( (string) $text, ENT_QUOTES, 'UTF-8' );
+}
+
+function esc_attr( $text ) {
+	return esc_html( $text );
+}
+
+function esc_url( $url ) {
+	return esc_html( $url );
+}
+
+function esc_html__( $text, $domain = 'default' ) {
+	return esc_html( $text );
+}
+
+function number_format_i18n( $number, $decimals = 0 ) {
+	return number_format( $number, $decimals, '.', ',' );
+}
+
+function wp_date( $format, $timestamp ) {
+	return gmdate( 'Y-m-d', $timestamp );
+}
+
+function add_filter( $hook, $callback, $priority = 10, $args = 1 ) {
+	$GLOBALS['blfb_test']['filters'][ $hook ][] = $callback;
+}
+
+function apply_filters( $hook, $value, ...$args ) {
+	if ( ! empty( $GLOBALS['blfb_test']['filters'][ $hook ] ) ) {
+		foreach ( $GLOBALS['blfb_test']['filters'][ $hook ] as $callback ) {
+			$value = call_user_func_array( $callback, array_merge( array( $value ), $args ) );
+		}
+	}
+	return $value;
+}
+
+function shortcode_atts( $defaults, $atts, $shortcode = '' ) {
+	return array_merge( $defaults, array_intersect_key( (array) $atts, $defaults ) );
+}
+
+function wp_enqueue_style( $handle ) {
+}
+
+/**
+ * Simplified add_query_arg( $key, $value, $url ) / add_query_arg( $array, $url ).
+ */
+function add_query_arg( ...$args ) {
+	if ( is_array( $args[0] ) ) {
+		$params = $args[0];
+		$url    = isset( $args[1] ) ? $args[1] : $GLOBALS['blfb_test']['url'];
+	} else {
+		$params = array( $args[0] => $args[1] );
+		$url    = isset( $args[2] ) ? $args[2] : $GLOBALS['blfb_test']['url'];
+	}
+	$parts = explode( '?', $url, 2 );
+	$query = array();
+	if ( isset( $parts[1] ) ) {
+		parse_str( $parts[1], $query );
+	}
+	$query = array_merge( $query, $params );
+	return $parts[0] . ( $query ? '?' . http_build_query( $query ) : '' );
+}
+
+function remove_query_arg( $keys, $url = null ) {
+	$url   = null === $url ? $GLOBALS['blfb_test']['url'] : $url;
+	$parts = explode( '?', $url, 2 );
+	$query = array();
+	if ( isset( $parts[1] ) ) {
+		parse_str( $parts[1], $query );
+	}
+	foreach ( (array) $keys as $key ) {
+		unset( $query[ $key ] );
+	}
+	return $parts[0] . ( $query ? '?' . http_build_query( $query ) : '' );
+}
+
+function wp_unslash( $value ) {
+	return $value;
+}
+
 function absint( $value ) {
 	return abs( (int) $value );
 }
@@ -209,3 +293,5 @@ require dirname( __DIR__ ) . '/includes/class-cache.php';
 require dirname( __DIR__ ) . '/includes/class-api-client.php';
 require dirname( __DIR__ ) . '/includes/class-access.php';
 require dirname( __DIR__ ) . '/includes/class-settings.php';
+require dirname( __DIR__ ) . '/includes/class-catalog.php';
+require dirname( __DIR__ ) . '/includes/class-frontend.php';

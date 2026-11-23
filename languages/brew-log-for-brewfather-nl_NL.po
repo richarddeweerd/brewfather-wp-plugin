@@ -22,6 +22,10 @@ msgstr "Toon je Brewfather-recepten, -batches en -voorraad op je WordPress-site.
 msgid "MythoTec"
 msgstr "MythoTec"
 
+msgctxt "user role"
+msgid "Brewer"
+msgstr "Brouwer"
+
 msgid "Brewfather is not set up yet. An administrator needs to enter the API credentials."
 msgstr "Brewfather is nog niet ingesteld. Een beheerder moet de API-gegevens invullen."
 
@@ -37,10 +41,6 @@ msgstr "Brewfather is op dit moment druk. Probeer het later opnieuw."
 msgid "Brewfather could not be reached. Please try again later."
 msgstr "Brewfather is niet bereikbaar. Probeer het later opnieuw."
 
-msgctxt "user role"
-msgid "Brewer"
-msgstr "Brouwer"
-
 msgid "Brewfather account"
 msgstr "Brewfather-account"
 
@@ -49,6 +49,18 @@ msgstr "Gebruikers-ID"
 
 msgid "API key"
 msgstr "API-sleutel"
+
+msgid "Ingredients"
+msgstr "Ingrediënten"
+
+msgid "Hide Ingredients"
+msgstr "Ingrediënten verbergen"
+
+msgid "Cache"
+msgstr "Cache"
+
+msgid "Cache timeout"
+msgstr "Cachetijd"
 
 msgid "Settings"
 msgstr "Instellingen"
@@ -59,42 +71,22 @@ msgstr "Je hebt geen toestemming om dit te doen."
 msgid "Test connection"
 msgstr "Verbinding testen"
 
-msgid "Connected to Brewfather."
-msgstr "Verbonden met Brewfather."
-
-msgid "Find your user ID and create an API key in Brewfather under Settings → API keys. The key needs the recipes.read, batches.read and inventory.read scopes."
-msgstr "Je gebruikers-ID en een API-sleutel vind je in Brewfather onder Instellingen → API-sleutels. De sleutel heeft de scopes recipes.read, batches.read en inventory.read nodig."
-
-msgid "A key is saved. Leave empty to keep it."
-msgstr "Er is een sleutel opgeslagen. Laat dit veld leeg om die te behouden."
-
-#, php-format
-msgid "Connection failed: %s"
-msgstr "Verbinding mislukt: %s"
-
-msgid "Cache"
-msgstr "Cache"
-
-msgid "Cache timeout"
-msgstr "Cachetijd"
-
-msgid "minutes"
-msgstr "minuten"
-
 msgid "Clear cache now"
 msgstr "Cache nu legen"
 
 msgid "The cache has been cleared."
 msgstr "De cache is geleegd."
 
-msgid "Brewfather data is stored for a while so the site stays fast and Brewfather is not asked too often. Changes in Brewfather show up on the site after the cache timeout."
-msgstr "Gegevens uit Brewfather worden een tijdje bewaard, zodat de site snel blijft en Brewfather niet te vaak wordt bevraagd. Wijzigingen in Brewfather verschijnen op de site na afloop van de cachetijd."
+msgid "Connected to Brewfather."
+msgstr "Verbonden met Brewfather."
 
-msgid "Ingredients"
-msgstr "Ingrediënten"
+#. translators: %s: reason, e.g. "Brewfather rejected the API credentials."
+#, php-format
+msgid "Connection failed: %s"
+msgstr "Verbinding mislukt: %s"
 
-msgid "Hide Ingredients"
-msgstr "Ingrediënten verbergen"
+msgid "Find your user ID and create an API key in Brewfather under Settings → API keys. The key needs the recipes.read, batches.read and inventory.read scopes."
+msgstr "Je gebruikers-ID en een API-sleutel vind je in Brewfather onder Instellingen → API-sleutels. De sleutel heeft de scopes recipes.read, batches.read en inventory.read nodig."
 
 msgid "Brewers and administrators always see the Ingredients of a Recipe."
 msgstr "Brouwers en beheerders zien altijd de ingrediënten van een recept."
@@ -104,3 +96,111 @@ msgstr "Ingrediënten verbergen voor bezoekers (niet ingelogd)"
 
 msgid "Hide Ingredients from logged-in users who are not Brewers (also hides them from visitors)"
 msgstr "Ingrediënten verbergen voor ingelogde gebruikers die geen brouwer zijn (ook verborgen voor bezoekers)"
+
+msgid "Brewfather data is stored for a while so the site stays fast and Brewfather is not asked too often. Changes in Brewfather show up on the site after the cache timeout."
+msgstr "Gegevens uit Brewfather worden een tijdje bewaard, zodat de site snel blijft en Brewfather niet te vaak wordt bevraagd. Wijzigingen in Brewfather verschijnen op de site na afloop van de cachetijd."
+
+msgid "minutes"
+msgstr "minuten"
+
+msgid "A key is saved. Leave empty to keep it."
+msgstr "Er is een sleutel opgeslagen. Laat dit veld leeg om die te behouden."
+
+msgid "There are no recipes yet."
+msgstr "Er zijn nog geen recepten."
+
+msgid "Recipe"
+msgstr "Recept"
+
+msgid "Style"
+msgstr "Stijl"
+
+msgid "ABV"
+msgstr "Alcohol"
+
+msgid "IBU"
+msgstr "IBU"
+
+msgid "Colour (EBC)"
+msgstr "Kleur (EBC)"
+
+msgid "There are no batches yet."
+msgstr "Er zijn nog geen batches."
+
+msgid "Batch size"
+msgstr "Batchgrootte"
+
+msgid "Batches"
+msgstr "Batches"
+
+msgid "This recipe has not been brewed yet."
+msgstr "Dit recept is nog niet gebrouwen."
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Brew date"
+msgstr "Brouwdatum"
+
+msgid "Original gravity"
+msgstr "Begin-SG"
+
+msgid "Final gravity"
+msgstr "Eind-SG"
+
+msgctxt "batch status"
+msgid "Planning"
+msgstr "Planning"
+
+msgctxt "batch status"
+msgid "Brewing"
+msgstr "Brouwen"
+
+msgctxt "batch status"
+msgid "Fermenting"
+msgstr "Vergisten"
+
+msgctxt "batch status"
+msgid "Conditioning"
+msgstr "Rijpen"
+
+msgctxt "batch status"
+msgid "Completed"
+msgstr "Klaar"
+
+msgctxt "batch status"
+msgid "Archived"
+msgstr "Gearchiveerd"
+
+msgid "Fermentables"
+msgstr "Vergistbare suikers"
+
+msgid "Amount"
+msgstr "Hoeveelheid"
+
+msgid "Hops"
+msgstr "Hop"
+
+msgid "Use"
+msgstr "Gebruik"
+
+msgid "Time"
+msgstr "Tijd"
+
+msgid "Other ingredients"
+msgstr "Overige ingrediënten"
+
+msgid "Yeasts"
+msgstr "Gist"
+
+msgid "Laboratory"
+msgstr "Leverancier"
+
+msgid "Name"
+msgstr "Naam"
+
+msgid "Batch"
+msgstr "Batch"
+
+msgid "← Back to the list"
+msgstr "← Terug naar de lijst"

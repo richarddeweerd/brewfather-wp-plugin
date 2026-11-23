@@ -1,26 +1,17 @@
-# Copyright (C) 2026 MythoTec
-# This file is distributed under the GPL-2.0-or-later.
-msgid ""
-msgstr ""
-"Project-Id-Version: Brew Log for Brewfather 0.1.0\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Domain: brew-log-for-brewfather\n"
-
 #. Plugin Name of the plugin
-#: brew-log-for-brewfather.php
 msgid "Brew Log for Brewfather"
 msgstr ""
 
 #. Description of the plugin
-#: brew-log-for-brewfather.php
 msgid "Show your Brewfather recipes, batches and stock on your WordPress site."
 msgstr ""
 
 #. Author of the plugin
-#: brew-log-for-brewfather.php
 msgid "MythoTec"
+msgstr ""
+
+msgctxt "user role"
+msgid "Brewer"
 msgstr ""
 
 msgid "Brewfather is not set up yet. An administrator needs to enter the API credentials."
@@ -38,10 +29,6 @@ msgstr ""
 msgid "Brewfather could not be reached. Please try again later."
 msgstr ""
 
-msgctxt "user role"
-msgid "Brewer"
-msgstr ""
-
 msgid "Brewfather account"
 msgstr ""
 
@@ -49,6 +36,18 @@ msgid "User ID"
 msgstr ""
 
 msgid "API key"
+msgstr ""
+
+msgid "Ingredients"
+msgstr ""
+
+msgid "Hide Ingredients"
+msgstr ""
+
+msgid "Cache"
+msgstr ""
+
+msgid "Cache timeout"
 msgstr ""
 
 msgid "Settings"
@@ -60,13 +59,13 @@ msgstr ""
 msgid "Test connection"
 msgstr ""
 
+msgid "Clear cache now"
+msgstr ""
+
+msgid "The cache has been cleared."
+msgstr ""
+
 msgid "Connected to Brewfather."
-msgstr ""
-
-msgid "Find your user ID and create an API key in Brewfather under Settings → API keys. The key needs the recipes.read, batches.read and inventory.read scopes."
-msgstr ""
-
-msgid "A key is saved. Leave empty to keep it."
 msgstr ""
 
 #. translators: %s: reason, e.g. "Brewfather rejected the API credentials."
@@ -74,28 +73,7 @@ msgstr ""
 msgid "Connection failed: %s"
 msgstr ""
 
-msgid "Cache"
-msgstr ""
-
-msgid "Cache timeout"
-msgstr ""
-
-msgid "minutes"
-msgstr ""
-
-msgid "Clear cache now"
-msgstr ""
-
-msgid "The cache has been cleared."
-msgstr ""
-
-msgid "Brewfather data is stored for a while so the site stays fast and Brewfather is not asked too often. Changes in Brewfather show up on the site after the cache timeout."
-msgstr ""
-
-msgid "Ingredients"
-msgstr ""
-
-msgid "Hide Ingredients"
+msgid "Find your user ID and create an API key in Brewfather under Settings → API keys. The key needs the recipes.read, batches.read and inventory.read scopes."
 msgstr ""
 
 msgid "Brewers and administrators always see the Ingredients of a Recipe."
@@ -105,4 +83,112 @@ msgid "Hide Ingredients from visitors (not logged in)"
 msgstr ""
 
 msgid "Hide Ingredients from logged-in users who are not Brewers (also hides them from visitors)"
+msgstr ""
+
+msgid "Brewfather data is stored for a while so the site stays fast and Brewfather is not asked too often. Changes in Brewfather show up on the site after the cache timeout."
+msgstr ""
+
+msgid "minutes"
+msgstr ""
+
+msgid "A key is saved. Leave empty to keep it."
+msgstr ""
+
+msgid "There are no recipes yet."
+msgstr ""
+
+msgid "Recipe"
+msgstr ""
+
+msgid "Style"
+msgstr ""
+
+msgid "ABV"
+msgstr ""
+
+msgid "IBU"
+msgstr ""
+
+msgid "Colour (EBC)"
+msgstr ""
+
+msgid "There are no batches yet."
+msgstr ""
+
+msgid "Batch size"
+msgstr ""
+
+msgid "Batches"
+msgstr ""
+
+msgid "This recipe has not been brewed yet."
+msgstr ""
+
+msgid "Status"
+msgstr ""
+
+msgid "Brew date"
+msgstr ""
+
+msgid "Original gravity"
+msgstr ""
+
+msgid "Final gravity"
+msgstr ""
+
+msgctxt "batch status"
+msgid "Planning"
+msgstr ""
+
+msgctxt "batch status"
+msgid "Brewing"
+msgstr ""
+
+msgctxt "batch status"
+msgid "Fermenting"
+msgstr ""
+
+msgctxt "batch status"
+msgid "Conditioning"
+msgstr ""
+
+msgctxt "batch status"
+msgid "Completed"
+msgstr ""
+
+msgctxt "batch status"
+msgid "Archived"
+msgstr ""
+
+msgid "Fermentables"
+msgstr ""
+
+msgid "Amount"
+msgstr ""
+
+msgid "Hops"
+msgstr ""
+
+msgid "Use"
+msgstr ""
+
+msgid "Time"
+msgstr ""
+
+msgid "Other ingredients"
+msgstr ""
+
+msgid "Yeasts"
+msgstr ""
+
+msgid "Laboratory"
+msgstr ""
+
+msgid "Name"
+msgstr ""
+
+msgid "Batch"
+msgstr ""
+
+msgid "← Back to the list"
 msgstr ""
