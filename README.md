@@ -121,7 +121,7 @@ composer test      # PHPUnit
 composer phpcs     # WordPress coding standards
 ```
 
-After changing any text, run `bin/update-translations.sh` and fill in the Dutch translations in `languages/brew-log-for-brewfather-nl_NL.po`. See `CLAUDE.md` for the architecture.
+After changing any text, run `bin/update-translations.sh` and fill in the Dutch translations in `languages/brew-log-for-brewfather-nl_NL.po`.
 
 ## License
 

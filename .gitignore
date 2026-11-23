@@ -3,3 +3,7 @@
 composer.lock
 .DS_Store
 /.composer-cache/
+
+# Kept locally, not published.
+/CLAUDE.md
+/docs/requirements.md
