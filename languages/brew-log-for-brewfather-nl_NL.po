@@ -19,8 +19,8 @@ msgid "Show your Brewfather recipes, batches and stock on your WordPress site."
 msgstr "Toon je Brewfather-recepten, -batches en -voorraad op je WordPress-site."
 
 #. Author of the plugin
-msgid "MythoTec"
-msgstr "MythoTec"
+msgid "R. de Weerd"
+msgstr "R. de Weerd"
 
 msgctxt "user role"
 msgid "Brewer"
@@ -40,6 +40,53 @@ msgstr "Brewfather is op dit moment druk. Probeer het later opnieuw."
 
 msgid "Brewfather could not be reached. Please try again later."
 msgstr "Brewfather is niet bereikbaar. Probeer het later opnieuw."
+
+msgid "Batch notes"
+msgstr "Batchnotities"
+
+msgid "Notes"
+msgstr "Notities"
+
+msgid "Log in to read and add notes."
+msgstr "Log in om notities te lezen en toe te voegen."
+
+msgid "No notes yet."
+msgstr "Nog geen notities."
+
+msgid "Former user"
+msgstr "Voormalige gebruiker"
+
+msgid "Save note"
+msgstr "Notitie opslaan"
+
+msgid "Add note"
+msgstr "Notitie toevoegen"
+
+msgid "You are not allowed to do this."
+msgstr "Je hebt geen toestemming om dit te doen."
+
+msgid "Edit"
+msgstr "Bewerken"
+
+msgid "Delete"
+msgstr "Verwijderen"
+
+msgid "Note"
+msgstr "Notitie"
+
+msgid "Cancel"
+msgstr "Annuleren"
+
+msgid "The note is empty."
+msgstr "De notitie is leeg."
+
+#. translators: %d: maximum number of characters.
+#, php-format
+msgid "The note is too long. Use at most %d characters."
+msgstr "De notitie is te lang. Gebruik maximaal %d tekens."
+
+msgid "This batch could not be found."
+msgstr "Deze batch is niet gevonden."
 
 msgid "There are no recipes yet."
 msgstr "Er zijn nog geen recepten."
@@ -164,9 +211,6 @@ msgstr "Cachetijd"
 msgid "Settings"
 msgstr "Instellingen"
 
-msgid "You are not allowed to do this."
-msgstr "Je hebt geen toestemming om dit te doen."
-
 msgid "Test connection"
 msgstr "Verbinding testen"
 
@@ -213,47 +257,3 @@ msgstr "Op voorraad"
 
 msgid "There is nothing in stock yet."
 msgstr "Er is nog niets op voorraad."
-
-msgid "Batch notes"
-msgstr "Batchnotities"
-
-msgid "Notes"
-msgstr "Notities"
-
-msgid "Log in to read and add notes."
-msgstr "Log in om notities te lezen en toe te voegen."
-
-msgid "No notes yet."
-msgstr "Nog geen notities."
-
-msgid "Former user"
-msgstr "Voormalige gebruiker"
-
-msgid "Save note"
-msgstr "Notitie opslaan"
-
-msgid "Add note"
-msgstr "Notitie toevoegen"
-
-msgid "Edit"
-msgstr "Bewerken"
-
-msgid "Delete"
-msgstr "Verwijderen"
-
-msgid "Note"
-msgstr "Notitie"
-
-msgid "Cancel"
-msgstr "Annuleren"
-
-msgid "The note is empty."
-msgstr "De notitie is leeg."
-
-#. translators: %d: maximum number of characters.
-#, php-format
-msgid "The note is too long. Use at most %d characters."
-msgstr "De notitie is te lang. Gebruik maximaal %d tekens."
-
-msgid "This batch could not be found."
-msgstr "Deze batch is niet gevonden."

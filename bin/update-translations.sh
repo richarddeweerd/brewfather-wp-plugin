@@ -25,12 +25,12 @@ msgid "Show your Brewfather recipes, batches and stock on your WordPress site."
 msgstr ""
 
 #. Author of the plugin
-msgid "MythoTec"
+msgid "R. de Weerd"
 msgstr ""
 H
 msgcat --use-first --no-wrap --no-location $T/header.pot $T/code.pot -o $T/all.pot
 cat > $L/$D.pot <<'H'
-# Copyright (C) MythoTec
+# Copyright (C) R. de Weerd
 # This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""

@@ -1,4 +1,4 @@
-# Copyright (C) MythoTec
+# Copyright (C) R. de Weerd
 # This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
@@ -17,7 +17,7 @@ msgid "Show your Brewfather recipes, batches and stock on your WordPress site."
 msgstr ""
 
 #. Author of the plugin
-msgid "MythoTec"
+msgid "R. de Weerd"
 msgstr ""
 
 msgctxt "user role"
@@ -37,6 +37,53 @@ msgid "Brewfather is busy right now. Please try again later."
 msgstr ""
 
 msgid "Brewfather could not be reached. Please try again later."
+msgstr ""
+
+msgid "Batch notes"
+msgstr ""
+
+msgid "Notes"
+msgstr ""
+
+msgid "Log in to read and add notes."
+msgstr ""
+
+msgid "No notes yet."
+msgstr ""
+
+msgid "Former user"
+msgstr ""
+
+msgid "Save note"
+msgstr ""
+
+msgid "Add note"
+msgstr ""
+
+msgid "You are not allowed to do this."
+msgstr ""
+
+msgid "Edit"
+msgstr ""
+
+msgid "Delete"
+msgstr ""
+
+msgid "Note"
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+msgid "The note is empty."
+msgstr ""
+
+#. translators: %d: maximum number of characters.
+#, php-format
+msgid "The note is too long. Use at most %d characters."
+msgstr ""
+
+msgid "This batch could not be found."
 msgstr ""
 
 msgid "There are no recipes yet."
@@ -162,9 +209,6 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-msgid "You are not allowed to do this."
-msgstr ""
-
 msgid "Test connection"
 msgstr ""
 
@@ -210,48 +254,4 @@ msgid "In stock"
 msgstr ""
 
 msgid "There is nothing in stock yet."
-msgstr ""
-
-msgid "Batch notes"
-msgstr ""
-
-msgid "Notes"
-msgstr ""
-
-msgid "Log in to read and add notes."
-msgstr ""
-
-msgid "No notes yet."
-msgstr ""
-
-msgid "Former user"
-msgstr ""
-
-msgid "Save note"
-msgstr ""
-
-msgid "Add note"
-msgstr ""
-
-msgid "Edit"
-msgstr ""
-
-msgid "Delete"
-msgstr ""
-
-msgid "Note"
-msgstr ""
-
-msgid "Cancel"
-msgstr ""
-
-msgid "The note is empty."
-msgstr ""
-
-#. translators: %d: maximum number of characters.
-#, php-format
-msgid "The note is too long. Use at most %d characters."
-msgstr ""
-
-msgid "This batch could not be found."
 msgstr ""
