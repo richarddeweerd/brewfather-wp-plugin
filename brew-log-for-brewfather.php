@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Brew Log for Brewfather
  * Description:       Show your Brewfather recipes, batches and stock on your WordPress site.
- * Version:           0.1.1
+ * Version:           0.1.2
  * Requires at least: 6.4
  * Requires PHP:      7.4
  * Author:            R. de Weerd
@@ -16,7 +16,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'BLFB_VERSION', '0.1.1' );
+define( 'BLFB_VERSION', '0.1.2' );
 define( 'BLFB_PLUGIN_FILE', __FILE__ );
 define( 'BLFB_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 

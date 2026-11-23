@@ -31,7 +31,7 @@ jobs:
   github-release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
@@ -60,7 +60,7 @@ jobs:
         if: env.SVN_USERNAME == ''
         run: echo "SVN_USERNAME is not set; not deploying to WordPress.org."
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         if: env.SVN_USERNAME != ''
         with:
           ref: ${{ env.TAG }}
