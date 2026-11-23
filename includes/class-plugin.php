@@ -24,8 +24,15 @@ final class Plugin {
 	 */
 	public static function init() {
 		add_action( 'init', array( __CLASS__, 'load_textdomain' ) );
+		add_action( 'init', array( Access::class, 'translate_role_name' ), 20 );
 
-		// Feature modules (settings, API client, shortcodes) register here.
+		// Activation hooks don't run when the plugin is updated in place, so
+		// re-run the installer whenever the stored version differs.
+		if ( get_option( self::VERSION_OPTION ) !== BLFB_VERSION ) {
+			self::activate();
+		}
+
+		// Feature modules (settings, shortcodes) register here.
 	}
 
 	/**
@@ -47,6 +54,7 @@ final class Plugin {
 	 * Runs when the plugin is activated.
 	 */
 	public static function activate() {
+		Access::install();
 		update_option( self::VERSION_OPTION, BLFB_VERSION, false );
 	}
 

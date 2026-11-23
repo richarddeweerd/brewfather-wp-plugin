@@ -37,3 +37,7 @@ msgstr ""
 
 msgid "Brewfather could not be reached. Please try again later."
 msgstr ""
+
+msgctxt "user role"
+msgid "Brewer"
+msgstr ""

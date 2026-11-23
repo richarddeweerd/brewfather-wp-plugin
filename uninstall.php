@@ -14,3 +14,6 @@ delete_option( 'blfb_cache_timeout' );
 delete_option( 'blfb_cache_generation' );
 delete_transient( 'blfb_rate_limited' );
 // Cached responses are transients with an expiry; WordPress removes them on its own.
+
+require_once __DIR__ . '/includes/class-access.php';
+BrewLogForBrewfather\Access::uninstall();

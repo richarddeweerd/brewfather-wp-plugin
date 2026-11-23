@@ -22,7 +22,81 @@ function reset_wp() {
 		'transients' => array(), // name => array( value, expiration ).
 		'responses'  => array(), // Queue of fake HTTP responses or WP_Errors.
 		'requests'   => array(), // Recorded array( url, args ).
+		'roles'      => array(
+			'administrator' => new WP_Role( 'administrator', array( 'manage_options' => true, 'read' => true ) ),
+			'subscriber'    => new WP_Role( 'subscriber', array( 'read' => true ) ),
+		),
+		'users'      => array(), // ID => role name.
+		'current'    => 0,       // Current user ID; 0 is a Visitor.
 	);
+	$GLOBALS['blfb_test']['role_names'] = new stdClass();
+	$GLOBALS['blfb_test']['role_names']->role_names = array();
+}
+
+class WP_Role {
+	public $name;
+	public $capabilities;
+
+	public function __construct( $name, $capabilities ) {
+		$this->name         = $name;
+		$this->capabilities = $capabilities;
+	}
+
+	public function add_cap( $cap ) {
+		$this->capabilities[ $cap ] = true;
+	}
+
+	public function remove_cap( $cap ) {
+		unset( $this->capabilities[ $cap ] );
+	}
+}
+
+function get_role( $name ) {
+	return isset( $GLOBALS['blfb_test']['roles'][ $name ] ) ? $GLOBALS['blfb_test']['roles'][ $name ] : null;
+}
+
+function add_role( $name, $display_name, $capabilities = array() ) {
+	$GLOBALS['blfb_test']['roles'][ $name ]                   = new WP_Role( $name, $capabilities );
+	$GLOBALS['blfb_test']['role_names']->role_names[ $name ] = $display_name;
+	return $GLOBALS['blfb_test']['roles'][ $name ];
+}
+
+function remove_role( $name ) {
+	unset( $GLOBALS['blfb_test']['roles'][ $name ], $GLOBALS['blfb_test']['role_names']->role_names[ $name ] );
+}
+
+function wp_roles() {
+	return $GLOBALS['blfb_test']['role_names'];
+}
+
+/**
+ * Creates a fake user with one role and returns its ID.
+ */
+function make_user( $role ) {
+	$id                                  = count( $GLOBALS['blfb_test']['users'] ) + 1;
+	$GLOBALS['blfb_test']['users'][ $id ] = $role;
+	return $id;
+}
+
+function user_can( $user, $cap ) {
+	$id = is_object( $user ) ? $user->ID : (int) $user;
+	if ( ! isset( $GLOBALS['blfb_test']['users'][ $id ] ) ) {
+		return false;
+	}
+	$role = get_role( $GLOBALS['blfb_test']['users'][ $id ] );
+	return $role && ! empty( $role->capabilities[ $cap ] );
+}
+
+function is_user_logged_in() {
+	return 0 !== $GLOBALS['blfb_test']['current'];
+}
+
+function get_current_user_id() {
+	return $GLOBALS['blfb_test']['current'];
+}
+
+function _x( $text, $context, $domain = 'default' ) {
+	return $text;
 }
 reset_wp();
 
@@ -125,3 +199,4 @@ function wp_remote_retrieve_header( $response, $header ) {
 require dirname( __DIR__ ) . '/includes/class-options.php';
 require dirname( __DIR__ ) . '/includes/class-cache.php';
 require dirname( __DIR__ ) . '/includes/class-api-client.php';
+require dirname( __DIR__ ) . '/includes/class-access.php';
