@@ -5,14 +5,18 @@ stages:
   # Needs a Docker executor; the untagged runner is shell-only.
   tags:
     - docker
+  variables:
+    COMPOSER_CACHE_DIR: "$CI_PROJECT_DIR/.composer-cache"
   before_script:
     - apt-get update -qq && apt-get install -y -qq git unzip > /dev/null
     - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-    - composer install --no-interaction --no-progress
+    # GitHub sometimes answers zip downloads from the runner with 504s; fall
+    # back to cloning the packages with git.
+    - composer install --no-interaction --no-progress || composer install --no-interaction --no-progress --prefer-source
   cache:
-    key: composer-$CI_JOB_NAME
+    key: composer
     paths:
-      - vendor/
+      - .composer-cache/
 
 # Syntax check on the oldest and newest supported PHP. Plain `php -l` with no
 # Composer, because the php:7.4 image's Debian mirrors are gone (no apt-get).

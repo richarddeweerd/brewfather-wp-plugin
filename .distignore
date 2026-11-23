@@ -12,3 +12,4 @@ GLOSSARY.md
 README.md
 tests
 phpunit.xml.dist
+.composer-cache
