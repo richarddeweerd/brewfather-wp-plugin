@@ -34,3 +34,21 @@ phpcs:
   image: php:8.3-cli
   script:
     - composer phpcs
+
+# Translations: the committed .pot must cover every string in the code, every
+# string must have a Dutch translation, and the .mo must match the .po.
+i18n:
+  stage: test
+  tags:
+    - docker
+  image: php:8.3-cli
+  before_script:
+    - apt-get update -qq && apt-get install -y -qq gettext > /dev/null
+    - curl -sSL -o /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+    - chmod +x /usr/local/bin/wp
+  script:
+    - wp i18n make-pot . /tmp/current.pot --exclude=vendor,docs --allow-root
+    - msgcmp --use-untranslated languages/brew-log-for-brewfather.pot /tmp/current.pot
+    - msgcmp languages/brew-log-for-brewfather-nl_NL.po /tmp/current.pot
+    - msgfmt --check -o /tmp/nl_NL.mo languages/brew-log-for-brewfather-nl_NL.po
+    - diff <(msgunfmt /tmp/nl_NL.mo) <(msgunfmt languages/brew-log-for-brewfather-nl_NL.mo)
