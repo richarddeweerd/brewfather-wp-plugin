@@ -79,6 +79,28 @@ class AccessTest extends TestCase {
 		$this->assertArrayNotHasKey( Access::BREWER_CAP, get_role( 'administrator' )->capabilities );
 	}
 
+	public function test_everyone_sees_ingredients_by_default() {
+		foreach ( array( Access::VISITOR, Access::USER, Access::BREWER, Access::ADMIN ) as $level ) {
+			$this->assertTrue( Access::can_see_ingredients( $level ) );
+		}
+	}
+
+	public function test_hiding_from_visitors() {
+		update_option( \BrewLogForBrewfather\Options::HIDE_INGREDIENTS_VISITORS, true );
+
+		$this->assertFalse( Access::can_see_ingredients( Access::VISITOR ) );
+		$this->assertTrue( Access::can_see_ingredients( Access::USER ) );
+	}
+
+	public function test_hiding_from_users_also_hides_from_visitors() {
+		update_option( \BrewLogForBrewfather\Options::HIDE_INGREDIENTS_USERS, true );
+
+		$this->assertFalse( Access::can_see_ingredients( Access::USER ) );
+		$this->assertFalse( Access::can_see_ingredients( Access::VISITOR ) );
+		$this->assertTrue( Access::can_see_ingredients( Access::BREWER ) );
+		$this->assertTrue( Access::can_see_ingredients( Access::ADMIN ) );
+	}
+
 	public function test_role_name_is_translated_for_display() {
 		Access::translate_role_name();
 

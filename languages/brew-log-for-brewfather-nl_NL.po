@@ -89,3 +89,18 @@ msgstr "De cache is geleegd."
 
 msgid "Brewfather data is stored for a while so the site stays fast and Brewfather is not asked too often. Changes in Brewfather show up on the site after the cache timeout."
 msgstr "Gegevens uit Brewfather worden een tijdje bewaard, zodat de site snel blijft en Brewfather niet te vaak wordt bevraagd. Wijzigingen in Brewfather verschijnen op de site na afloop van de cachetijd."
+
+msgid "Ingredients"
+msgstr "Ingrediënten"
+
+msgid "Hide Ingredients"
+msgstr "Ingrediënten verbergen"
+
+msgid "Brewers and administrators always see the Ingredients of a Recipe."
+msgstr "Brouwers en beheerders zien altijd de ingrediënten van een recept."
+
+msgid "Hide Ingredients from visitors (not logged in)"
+msgstr "Ingrediënten verbergen voor bezoekers (niet ingelogd)"
+
+msgid "Hide Ingredients from logged-in users who are not Brewers (also hides them from visitors)"
+msgstr "Ingrediënten verbergen voor ingelogde gebruikers die geen brouwer zijn (ook verborgen voor bezoekers)"

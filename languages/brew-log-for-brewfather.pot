@@ -91,3 +91,18 @@ msgstr ""
 
 msgid "Brewfather data is stored for a while so the site stays fast and Brewfather is not asked too often. Changes in Brewfather show up on the site after the cache timeout."
 msgstr ""
+
+msgid "Ingredients"
+msgstr ""
+
+msgid "Hide Ingredients"
+msgstr ""
+
+msgid "Brewers and administrators always see the Ingredients of a Recipe."
+msgstr ""
+
+msgid "Hide Ingredients from visitors (not logged in)"
+msgstr ""
+
+msgid "Hide Ingredients from logged-in users who are not Brewers (also hides them from visitors)"
+msgstr ""

@@ -33,4 +33,14 @@ final class Options {
 	 * Default cache timeout in minutes.
 	 */
 	const DEFAULT_CACHE_MINUTES = 60;
+
+	/**
+	 * Hide Recipe Ingredients from Visitors (bool).
+	 */
+	const HIDE_INGREDIENTS_VISITORS = 'blfb_hide_ingredients_visitors';
+
+	/**
+	 * Hide Recipe Ingredients from Users, and therefore also Visitors (bool).
+	 */
+	const HIDE_INGREDIENTS_USERS = 'blfb_hide_ingredients_users';
 }

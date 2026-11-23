@@ -86,6 +86,29 @@ final class Access {
 	}
 
 	/**
+	 * Whether a level may see Recipe Ingredients, given the hiding settings.
+	 *
+	 * Brewers and Admins always may. Hiding from Users also hides from
+	 * Visitors, because a lower level can never see more than a higher one.
+	 *
+	 * @param int $level One of the level constants.
+	 * @return bool
+	 */
+	public static function can_see_ingredients( $level ) {
+		if ( $level >= self::BREWER ) {
+			return true;
+		}
+		if ( get_option( Options::HIDE_INGREDIENTS_USERS, false ) ) {
+			return false;
+		}
+		if ( self::VISITOR === $level && get_option( Options::HIDE_INGREDIENTS_VISITORS, false ) ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
 	 * Creates the brewer role and gives administrators the brewer capability.
 	 * Safe to run more than once.
 	 */

@@ -136,6 +136,10 @@ function sanitize_text_field( $value ) {
 	return trim( preg_replace( '/[\r\n\t ]+/', ' ', strip_tags( (string) $value ) ) );
 }
 
+function checked( $checked, $current = true, $echo = true ) {
+	return (string) $checked === (string) $current ? ' checked=\'checked\'' : '';
+}
+
 function absint( $value ) {
 	return abs( (int) $value );
 }

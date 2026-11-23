@@ -124,6 +124,48 @@ final class Settings {
 		);
 
 		self::register_cache_section();
+		self::register_ingredients_section();
+	}
+
+	/**
+	 * Adds the section with the Ingredient visibility switches.
+	 */
+	private static function register_ingredients_section() {
+		foreach ( array( Options::HIDE_INGREDIENTS_VISITORS, Options::HIDE_INGREDIENTS_USERS ) as $option ) {
+			register_setting(
+				self::PAGE,
+				$option,
+				array(
+					'type'              => 'boolean',
+					'sanitize_callback' => array( __CLASS__, 'sanitize_checkbox' ),
+					'default'           => false,
+				)
+			);
+		}
+
+		add_settings_section(
+			'blfb_ingredients',
+			__( 'Ingredients', 'brew-log-for-brewfather' ),
+			array( __CLASS__, 'render_ingredients_intro' ),
+			self::PAGE
+		);
+		add_settings_field(
+			'blfb_hide_ingredients',
+			__( 'Hide Ingredients', 'brew-log-for-brewfather' ),
+			array( __CLASS__, 'render_hide_ingredients_fields' ),
+			self::PAGE,
+			'blfb_ingredients'
+		);
+	}
+
+	/**
+	 * Stores a checkbox as a boolean.
+	 *
+	 * @param mixed $value Submitted value; absent when unchecked.
+	 * @return bool
+	 */
+	public static function sanitize_checkbox( $value ) {
+		return ! empty( $value );
 	}
 
 	/**
@@ -323,6 +365,34 @@ final class Settings {
 	 */
 	public static function render_account_intro() {
 		echo '<p>' . esc_html__( 'Find your user ID and create an API key in Brewfather under Settings → API keys. The key needs the recipes.read, batches.read and inventory.read scopes.', 'brew-log-for-brewfather' ) . '</p>';
+	}
+
+	/**
+	 * Explains who sees Ingredients.
+	 */
+	public static function render_ingredients_intro() {
+		echo '<p>' . esc_html__( 'Brewers and administrators always see the Ingredients of a Recipe.', 'brew-log-for-brewfather' ) . '</p>';
+	}
+
+	/**
+	 * Renders the two Ingredient visibility checkboxes.
+	 */
+	public static function render_hide_ingredients_fields() {
+		$fields = array(
+			Options::HIDE_INGREDIENTS_VISITORS => __( 'Hide Ingredients from visitors (not logged in)', 'brew-log-for-brewfather' ),
+			Options::HIDE_INGREDIENTS_USERS    => __( 'Hide Ingredients from logged-in users who are not Brewers (also hides them from visitors)', 'brew-log-for-brewfather' ),
+		);
+
+		echo '<fieldset>';
+		foreach ( $fields as $option => $label ) {
+			printf(
+				'<label><input type="checkbox" name="%1$s" value="1"%2$s> %3$s</label><br>',
+				esc_attr( $option ),
+				checked( (bool) get_option( $option, false ), true, false ),
+				esc_html( $label )
+			);
+		}
+		echo '</fieldset>';
 	}
 
 	/**
