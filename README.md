@@ -90,7 +90,7 @@ The status can be `planning`, `brewing`, `fermenting`, `conditioning`, `complete
 [brewfather_stock]
 ```
 
-**Linking straight to one recipe or batch.** Any page with one of the shortcodes shows a single recipe or batch when you add its Brewfather ID to the address: You can find the ID by opening the recipe or batch from a list on your site and copying the address.
+**Linking straight to one recipe or batch.** Any page with one of the shortcodes shows a single recipe or batch when you add its Brewfather ID to the address. To find the ID, open the recipe or batch from a list on your site and copy the address:
 
 ```
 https://example.com/our-beers/?recipe=<recipe-id>
