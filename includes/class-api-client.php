@@ -106,11 +106,11 @@ class Api_Client {
 	/**
 	 * All recipes.
 	 *
-	 * @param string[] $include Extra fields to include, e.g. array( 'abv', 'ibu' ).
+	 * @param string[] $fields  Extra fields to include, e.g. array( 'abv', 'ibu' ).
 	 * @return array|WP_Error
 	 */
-	public function get_recipes( array $include = array() ) {
-		return $this->get_list( 'recipes', $this->include_query( $include ) );
+	public function get_recipes( array $fields = array() ) {
+		return $this->get_list( 'recipes', $this->include_query( $fields ) );
 	}
 
 	/**
@@ -126,12 +126,12 @@ class Api_Client {
 	/**
 	 * All batches, optionally filtered by status.
 	 *
-	 * @param string[] $include Extra fields to include, e.g. array( 'recipe._id' ).
+	 * @param string[] $fields  Extra fields to include, e.g. array( 'recipe._id' ).
 	 * @param string   $status  Brewfather status, e.g. 'Fermenting'. Empty for all.
 	 * @return array|WP_Error
 	 */
-	public function get_batches( array $include = array(), $status = '' ) {
-		$query = $this->include_query( $include );
+	public function get_batches( array $fields = array(), $status = '' ) {
+		$query = $this->include_query( $fields );
 		if ( '' !== $status ) {
 			$query['status'] = $status;
 		}
@@ -153,15 +153,15 @@ class Api_Client {
 	 * Inventory items of one type.
 	 *
 	 * @param string   $type    One of INVENTORY_TYPES.
-	 * @param string[] $include Extra fields to include.
+	 * @param string[] $fields  Extra fields to include.
 	 * @return array|WP_Error
 	 */
-	public function get_inventory( $type, array $include = array() ) {
+	public function get_inventory( $type, array $fields = array() ) {
 		if ( ! in_array( $type, self::INVENTORY_TYPES, true ) ) {
 			return $this->error( 'blfb_not_found' );
 		}
 
-		return $this->get_list( 'inventory/' . $type, $this->include_query( $include ) );
+		return $this->get_list( 'inventory/' . $type, $this->include_query( $fields ) );
 	}
 
 	/**
@@ -309,11 +309,11 @@ class Api_Client {
 	/**
 	 * Builds the `include` query argument.
 	 *
-	 * @param string[] $include Field names.
+	 * @param string[] $fields  Field names.
 	 * @return array
 	 */
-	private function include_query( array $include ) {
-		return $include ? array( 'include' => implode( ',', $include ) ) : array();
+	private function include_query( array $fields ) {
+		return $fields ? array( 'include' => implode( ',', $fields ) ) : array();
 	}
 
 	/**
