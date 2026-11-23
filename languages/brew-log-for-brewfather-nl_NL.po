@@ -21,3 +21,18 @@ msgstr "Toon je Brewfather-recepten, -batches en -voorraad op je WordPress-site.
 #. Author of the plugin
 msgid "MythoTec"
 msgstr "MythoTec"
+
+msgid "Brewfather is not set up yet. An administrator needs to enter the API credentials."
+msgstr "Brewfather is nog niet ingesteld. Een beheerder moet de API-gegevens invullen."
+
+msgid "Brewfather rejected the API credentials. An administrator needs to check them."
+msgstr "Brewfather heeft de API-gegevens geweigerd. Een beheerder moet ze controleren."
+
+msgid "This item could not be found in Brewfather."
+msgstr "Dit item is niet gevonden in Brewfather."
+
+msgid "Brewfather is busy right now. Please try again later."
+msgstr "Brewfather is op dit moment druk. Probeer het later opnieuw."
+
+msgid "Brewfather could not be reached. Please try again later."
+msgstr "Brewfather is niet bereikbaar. Probeer het later opnieuw."

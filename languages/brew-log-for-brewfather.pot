@@ -22,3 +22,18 @@ msgstr ""
 #: brew-log-for-brewfather.php
 msgid "MythoTec"
 msgstr ""
+
+msgid "Brewfather is not set up yet. An administrator needs to enter the API credentials."
+msgstr ""
+
+msgid "Brewfather rejected the API credentials. An administrator needs to check them."
+msgstr ""
+
+msgid "This item could not be found in Brewfather."
+msgstr ""
+
+msgid "Brewfather is busy right now. Please try again later."
+msgstr ""
+
+msgid "Brewfather could not be reached. Please try again later."
+msgstr ""

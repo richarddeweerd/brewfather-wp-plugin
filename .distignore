@@ -10,3 +10,5 @@ docs
 CLAUDE.md
 GLOSSARY.md
 README.md
+tests
+phpunit.xml.dist

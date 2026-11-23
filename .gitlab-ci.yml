@@ -52,3 +52,11 @@ i18n:
     - msgcmp languages/brew-log-for-brewfather-nl_NL.po /tmp/current.pot
     - msgfmt --check -o /tmp/nl_NL.mo languages/brew-log-for-brewfather-nl_NL.po
     - diff <(msgunfmt /tmp/nl_NL.mo) <(msgunfmt languages/brew-log-for-brewfather-nl_NL.mo)
+
+# Unit tests (WordPress functions are stubbed in tests/bootstrap.php).
+test:
+  extends: .composer
+  stage: test
+  image: php:8.3-cli
+  script:
+    - composer test
