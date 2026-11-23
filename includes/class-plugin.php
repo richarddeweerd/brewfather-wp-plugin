@@ -38,6 +38,7 @@ final class Plugin {
 
 		Frontend::init();
 		Stock::init();
+		Batch_Notes::init();
 	}
 
 	/**

@@ -211,3 +211,47 @@ msgstr ""
 
 msgid "There is nothing in stock yet."
 msgstr ""
+
+msgid "Batch notes"
+msgstr ""
+
+msgid "Notes"
+msgstr ""
+
+msgid "Log in to read and add notes."
+msgstr ""
+
+msgid "No notes yet."
+msgstr ""
+
+msgid "Former user"
+msgstr ""
+
+msgid "Save note"
+msgstr ""
+
+msgid "Add note"
+msgstr ""
+
+msgid "Edit"
+msgstr ""
+
+msgid "Delete"
+msgstr ""
+
+msgid "Note"
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+msgid "The note is empty."
+msgstr ""
+
+#. translators: %d: maximum number of characters.
+#, php-format
+msgid "The note is too long. Use at most %d characters."
+msgstr ""
+
+msgid "This batch could not be found."
+msgstr ""

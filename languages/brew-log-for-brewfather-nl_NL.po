@@ -213,3 +213,47 @@ msgstr "Op voorraad"
 
 msgid "There is nothing in stock yet."
 msgstr "Er is nog niets op voorraad."
+
+msgid "Batch notes"
+msgstr "Batchnotities"
+
+msgid "Notes"
+msgstr "Notities"
+
+msgid "Log in to read and add notes."
+msgstr "Log in om notities te lezen en toe te voegen."
+
+msgid "No notes yet."
+msgstr "Nog geen notities."
+
+msgid "Former user"
+msgstr "Voormalige gebruiker"
+
+msgid "Save note"
+msgstr "Notitie opslaan"
+
+msgid "Add note"
+msgstr "Notitie toevoegen"
+
+msgid "Edit"
+msgstr "Bewerken"
+
+msgid "Delete"
+msgstr "Verwijderen"
+
+msgid "Note"
+msgstr "Notitie"
+
+msgid "Cancel"
+msgstr "Annuleren"
+
+msgid "The note is empty."
+msgstr "De notitie is leeg."
+
+#. translators: %d: maximum number of characters.
+#, php-format
+msgid "The note is too long. Use at most %d characters."
+msgstr "De notitie is te lang. Gebruik maximaal %d tekens."
+
+msgid "This batch could not be found."
+msgstr "Deze batch is niet gevonden."

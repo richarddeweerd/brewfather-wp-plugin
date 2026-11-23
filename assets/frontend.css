@@ -40,3 +40,32 @@
 .blfb-empty td {
 	opacity: 0.55;
 }
+.blfb-note {
+	margin: 0 0 1em;
+	padding: 0 0 1em;
+	border-bottom: 1px solid rgba(127, 127, 127, 0.3);
+}
+.blfb-note-meta {
+	margin: 0 0 0.3em;
+	font-size: 0.9em;
+}
+.blfb-note-actions {
+	margin: 0.4em 0 0;
+	font-size: 0.9em;
+}
+.blfb-inline {
+	display: inline;
+}
+.blfb-link {
+	background: none;
+	border: 0;
+	padding: 0;
+	color: inherit;
+	text-decoration: underline;
+	cursor: pointer;
+	font: inherit;
+}
+.blfb-note-form textarea {
+	width: 100%;
+	box-sizing: border-box;
+}

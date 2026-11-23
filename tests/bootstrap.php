@@ -30,6 +30,8 @@ function reset_wp() {
 		'current'    => 0,       // Current user ID; 0 is a Visitor.
 		'filters'    => array(), // Hook name => list of callbacks.
 		'url'        => 'https://example.test/brews/', // Current page URL.
+		'posts'      => array(), // ID => WP_Post.
+		'next_post'  => 1,
 	);
 	$_GET = array();
 	$GLOBALS['blfb_test']['role_names'] = new stdClass();
@@ -224,6 +226,99 @@ function wp_unslash( $value ) {
 	return $value;
 }
 
+class WP_Post {
+	public $ID;
+	public $post_type;
+	public $post_status;
+	public $post_author;
+	public $post_content;
+	public $post_title;
+	public $post_date_gmt;
+	public $meta = array();
+}
+
+function wp_insert_post( $args, $wp_error = false ) {
+	$post                = new WP_Post();
+	$post->ID            = $GLOBALS['blfb_test']['next_post']++;
+	$post->post_type     = $args['post_type'];
+	$post->post_status   = $args['post_status'];
+	$post->post_author   = (string) $args['post_author'];
+	$post->post_content  = $args['post_content'];
+	$post->post_title    = isset( $args['post_title'] ) ? $args['post_title'] : '';
+	$post->post_date_gmt = gmdate( 'Y-m-d H:i:s', 1700000000 + $post->ID * 60 );
+	$post->meta          = isset( $args['meta_input'] ) ? $args['meta_input'] : array();
+
+	$GLOBALS['blfb_test']['posts'][ $post->ID ] = $post;
+	return $post->ID;
+}
+
+function wp_update_post( $args, $wp_error = false ) {
+	foreach ( $args as $key => $value ) {
+		if ( 'ID' !== $key ) {
+			$GLOBALS['blfb_test']['posts'][ $args['ID'] ]->$key = $value;
+		}
+	}
+	return $args['ID'];
+}
+
+function wp_delete_post( $id, $force = false ) {
+	unset( $GLOBALS['blfb_test']['posts'][ $id ] );
+}
+
+function get_post( $id ) {
+	return isset( $GLOBALS['blfb_test']['posts'][ $id ] ) ? $GLOBALS['blfb_test']['posts'][ $id ] : null;
+}
+
+/**
+ * Supports post_type, post_status and one meta_query key/value; ordered by ID.
+ */
+function get_posts( $args ) {
+	$posts = array();
+	foreach ( $GLOBALS['blfb_test']['posts'] as $post ) {
+		if ( $post->post_type !== $args['post_type'] || $post->post_status !== $args['post_status'] ) {
+			continue;
+		}
+		if ( isset( $args['meta_query'][0] ) ) {
+			$clause = $args['meta_query'][0];
+			if ( ! isset( $post->meta[ $clause['key'] ] ) || $post->meta[ $clause['key'] ] !== $clause['value'] ) {
+				continue;
+			}
+		}
+		$posts[] = $post;
+	}
+	return $posts;
+}
+
+function get_userdata( $id ) {
+	if ( ! isset( $GLOBALS['blfb_test']['users'][ $id ] ) ) {
+		return false;
+	}
+	$user               = new stdClass();
+	$user->ID           = $id;
+	$user->display_name = 'User ' . $id;
+	return $user;
+}
+
+function wp_login_url( $redirect = '' ) {
+	return 'https://example.test/wp-login.php?redirect_to=' . rawurlencode( $redirect );
+}
+
+function admin_url( $path = '' ) {
+	return 'https://example.test/wp-admin/' . $path;
+}
+
+function wp_nonce_field( $action = -1, $name = '_wpnonce', $referer = true, $echo = true ) {
+	return '<input type="hidden" name="' . $name . '" value="nonce-' . $action . '">';
+}
+
+function esc_textarea( $text ) {
+	return esc_html( $text );
+}
+
+function sanitize_key( $key ) {
+	return preg_replace( '/[^a-z0-9_\-]/', '', strtolower( (string) $key ) );
+}
+
 function absint( $value ) {
 	return abs( (int) $value );
 }
@@ -296,3 +391,4 @@ require dirname( __DIR__ ) . '/includes/class-settings.php';
 require dirname( __DIR__ ) . '/includes/class-catalog.php';
 require dirname( __DIR__ ) . '/includes/class-frontend.php';
 require dirname( __DIR__ ) . '/includes/class-stock.php';
+require dirname( __DIR__ ) . '/includes/class-batch-notes.php';
