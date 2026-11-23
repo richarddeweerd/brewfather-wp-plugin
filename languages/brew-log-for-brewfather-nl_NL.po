@@ -40,3 +40,34 @@ msgstr "Brewfather is niet bereikbaar. Probeer het later opnieuw."
 msgctxt "user role"
 msgid "Brewer"
 msgstr "Brouwer"
+
+msgid "Brewfather account"
+msgstr "Brewfather-account"
+
+msgid "User ID"
+msgstr "Gebruikers-ID"
+
+msgid "API key"
+msgstr "API-sleutel"
+
+msgid "Settings"
+msgstr "Instellingen"
+
+msgid "You are not allowed to do this."
+msgstr "Je hebt geen toestemming om dit te doen."
+
+msgid "Test connection"
+msgstr "Verbinding testen"
+
+msgid "Connected to Brewfather."
+msgstr "Verbonden met Brewfather."
+
+msgid "Find your user ID and create an API key in Brewfather under Settings → API keys. The key needs the recipes.read, batches.read and inventory.read scopes."
+msgstr "Je gebruikers-ID en een API-sleutel vind je in Brewfather onder Instellingen → API-sleutels. De sleutel heeft de scopes recipes.read, batches.read en inventory.read nodig."
+
+msgid "A key is saved. Leave empty to keep it."
+msgstr "Er is een sleutel opgeslagen. Laat dit veld leeg om die te behouden."
+
+#, php-format
+msgid "Connection failed: %s"
+msgstr "Verbinding mislukt: %s"

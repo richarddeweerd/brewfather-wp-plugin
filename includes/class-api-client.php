@@ -165,6 +165,21 @@ class Api_Client {
 	}
 
 	/**
+	 * Checks the credentials with one small, uncached request.
+	 *
+	 * @return true|WP_Error
+	 */
+	public function test_connection() {
+		if ( ! $this->is_configured() ) {
+			return $this->error( 'blfb_not_configured' );
+		}
+
+		$result = $this->request( 'recipes', array( 'limit' => 1 ) );
+
+		return is_wp_error( $result ) ? $result : true;
+	}
+
+	/**
 	 * Fetches every page of a list endpoint.
 	 *
 	 * @param string $path  Path below BASE_URL.
@@ -324,6 +339,16 @@ class Api_Client {
 	 * @return WP_Error
 	 */
 	private function error( $code, $data = null ) {
+		return new WP_Error( $code, self::error_message( $code ), $data );
+	}
+
+	/**
+	 * The visitor-friendly message for one of the client's error codes.
+	 *
+	 * @param string $code Error code, e.g. 'blfb_unauthorized'.
+	 * @return string Empty for unknown codes.
+	 */
+	public static function error_message( $code ) {
 		$messages = array(
 			'blfb_not_configured' => __( 'Brewfather is not set up yet. An administrator needs to enter the API credentials.', 'brew-log-for-brewfather' ),
 			'blfb_unauthorized'   => __( 'Brewfather rejected the API credentials. An administrator needs to check them.', 'brew-log-for-brewfather' ),
@@ -332,6 +357,6 @@ class Api_Client {
 			'blfb_unreachable'    => __( 'Brewfather could not be reached. Please try again later.', 'brew-log-for-brewfather' ),
 		);
 
-		return new WP_Error( $code, $messages[ $code ], $data );
+		return isset( $messages[ $code ] ) ? $messages[ $code ] : '';
 	}
 }

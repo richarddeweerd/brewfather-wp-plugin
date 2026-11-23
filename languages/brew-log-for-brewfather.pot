@@ -41,3 +41,35 @@ msgstr ""
 msgctxt "user role"
 msgid "Brewer"
 msgstr ""
+
+msgid "Brewfather account"
+msgstr ""
+
+msgid "User ID"
+msgstr ""
+
+msgid "API key"
+msgstr ""
+
+msgid "Settings"
+msgstr ""
+
+msgid "You are not allowed to do this."
+msgstr ""
+
+msgid "Test connection"
+msgstr ""
+
+msgid "Connected to Brewfather."
+msgstr ""
+
+msgid "Find your user ID and create an API key in Brewfather under Settings → API keys. The key needs the recipes.read, batches.read and inventory.read scopes."
+msgstr ""
+
+msgid "A key is saved. Leave empty to keep it."
+msgstr ""
+
+#. translators: %s: reason, e.g. "Brewfather rejected the API credentials."
+#, php-format
+msgid "Connection failed: %s"
+msgstr ""

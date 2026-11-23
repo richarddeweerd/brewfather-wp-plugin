@@ -132,6 +132,10 @@ function __( $text, $domain = 'default' ) {
 	return $text;
 }
 
+function sanitize_text_field( $value ) {
+	return trim( preg_replace( '/[\r\n\t ]+/', ' ', strip_tags( (string) $value ) ) );
+}
+
 function absint( $value ) {
 	return abs( (int) $value );
 }
@@ -200,3 +204,4 @@ require dirname( __DIR__ ) . '/includes/class-options.php';
 require dirname( __DIR__ ) . '/includes/class-cache.php';
 require dirname( __DIR__ ) . '/includes/class-api-client.php';
 require dirname( __DIR__ ) . '/includes/class-access.php';
+require dirname( __DIR__ ) . '/includes/class-settings.php';

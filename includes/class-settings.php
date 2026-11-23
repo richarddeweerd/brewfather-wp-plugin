@@ -1,0 +1,259 @@
+<?php
+/**
+ * Settings page.
+ *
+ * @package BrewLogForBrewfather
+ */
+
+namespace BrewLogForBrewfather;
+
+defined( 'ABSPATH' ) || exit;
+
+/**
+ * The plugin's page under Settings, for Admins.
+ */
+final class Settings {
+
+	/**
+	 * Page slug, also the settings group name.
+	 */
+	const PAGE = 'brew-log-for-brewfather';
+
+	/**
+	 * admin-post.php action for the connection test.
+	 */
+	const TEST_ACTION = 'blfb_test_connection';
+
+	/**
+	 * Query argument that carries the connection test result back to the page.
+	 */
+	const RESULT_ARG = 'blfb_connection';
+
+	/**
+	 * Registers the hooks.
+	 */
+	public static function init() {
+		add_action( 'admin_menu', array( __CLASS__, 'add_page' ) );
+		add_action( 'admin_init', array( __CLASS__, 'register' ) );
+		add_action( 'admin_post_' . self::TEST_ACTION, array( __CLASS__, 'handle_test_connection' ) );
+		add_filter( 'plugin_action_links_' . plugin_basename( BLFB_PLUGIN_FILE ), array( __CLASS__, 'add_settings_link' ) );
+
+		// Other credentials may mean another Brewfather account.
+		add_action( 'update_option_' . Options::USER_ID, array( __CLASS__, 'clear_cache' ) );
+		add_action( 'update_option_' . Options::API_KEY, array( __CLASS__, 'clear_cache' ) );
+	}
+
+	/**
+	 * Adds the page under Settings.
+	 */
+	public static function add_page() {
+		add_options_page(
+			__( 'Brew Log for Brewfather', 'brew-log-for-brewfather' ),
+			__( 'Brew Log for Brewfather', 'brew-log-for-brewfather' ),
+			Access::ADMIN_CAP,
+			self::PAGE,
+			array( __CLASS__, 'render_page' )
+		);
+	}
+
+	/**
+	 * Registers the options, section and fields.
+	 */
+	public static function register() {
+		register_setting(
+			self::PAGE,
+			Options::USER_ID,
+			array(
+				'type'              => 'string',
+				'sanitize_callback' => array( __CLASS__, 'sanitize_user_id' ),
+				'default'           => '',
+			)
+		);
+		register_setting(
+			self::PAGE,
+			Options::API_KEY,
+			array(
+				'type'              => 'string',
+				'sanitize_callback' => array( __CLASS__, 'sanitize_api_key' ),
+				'default'           => '',
+			)
+		);
+
+		add_settings_section(
+			'blfb_account',
+			__( 'Brewfather account', 'brew-log-for-brewfather' ),
+			array( __CLASS__, 'render_account_intro' ),
+			self::PAGE
+		);
+		add_settings_field(
+			Options::USER_ID,
+			__( 'User ID', 'brew-log-for-brewfather' ),
+			array( __CLASS__, 'render_user_id_field' ),
+			self::PAGE,
+			'blfb_account',
+			array( 'label_for' => Options::USER_ID )
+		);
+		add_settings_field(
+			Options::API_KEY,
+			__( 'API key', 'brew-log-for-brewfather' ),
+			array( __CLASS__, 'render_api_key_field' ),
+			self::PAGE,
+			'blfb_account',
+			array( 'label_for' => Options::API_KEY )
+		);
+	}
+
+	/**
+	 * Trims the user ID.
+	 *
+	 * @param mixed $value Submitted value.
+	 * @return string
+	 */
+	public static function sanitize_user_id( $value ) {
+		return trim( sanitize_text_field( (string) $value ) );
+	}
+
+	/**
+	 * Keeps the saved key when the field is left empty; the page never sends
+	 * the saved key back to the browser.
+	 *
+	 * @param mixed $value Submitted value.
+	 * @return string
+	 */
+	public static function sanitize_api_key( $value ) {
+		$value = trim( sanitize_text_field( (string) $value ) );
+
+		return '' === $value ? (string) get_option( Options::API_KEY, '' ) : $value;
+	}
+
+	/**
+	 * Clears the API cache.
+	 */
+	public static function clear_cache() {
+		( new Cache() )->clear();
+	}
+
+	/**
+	 * Adds a "Settings" link to the plugin's row on the Plugins screen.
+	 *
+	 * @param string[] $links Existing links.
+	 * @return string[]
+	 */
+	public static function add_settings_link( $links ) {
+		$url = admin_url( 'options-general.php?page=' . self::PAGE );
+		array_unshift( $links, '<a href="' . esc_url( $url ) . '">' . esc_html__( 'Settings', 'brew-log-for-brewfather' ) . '</a>' );
+
+		return $links;
+	}
+
+	/**
+	 * Runs the connection test and redirects back to the page with the result.
+	 */
+	public static function handle_test_connection() {
+		if ( ! current_user_can( Access::ADMIN_CAP ) ) {
+			wp_die( esc_html__( 'You are not allowed to do this.', 'brew-log-for-brewfather' ), 403 );
+		}
+		check_admin_referer( self::TEST_ACTION );
+
+		$result = Api_Client::from_settings()->test_connection();
+
+		wp_safe_redirect(
+			add_query_arg(
+				self::RESULT_ARG,
+				is_wp_error( $result ) ? $result->get_error_code() : 'ok',
+				admin_url( 'options-general.php?page=' . self::PAGE )
+			)
+		);
+		exit;
+	}
+
+	/**
+	 * Renders the page.
+	 */
+	public static function render_page() {
+		if ( ! current_user_can( Access::ADMIN_CAP ) ) {
+			return;
+		}
+		?>
+		<div class="wrap">
+			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
+			<?php self::render_test_result(); ?>
+
+			<form action="options.php" method="post">
+				<?php
+				settings_fields( self::PAGE );
+				do_settings_sections( self::PAGE );
+				submit_button();
+				?>
+			</form>
+
+			<form action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post">
+				<input type="hidden" name="action" value="<?php echo esc_attr( self::TEST_ACTION ); ?>">
+				<?php
+				wp_nonce_field( self::TEST_ACTION );
+				submit_button( __( 'Test connection', 'brew-log-for-brewfather' ), 'secondary', 'submit', false );
+				?>
+			</form>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Shows the result of the last connection test, if the page was reached
+	 * from one.
+	 */
+	private static function render_test_result() {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Display only; the code is checked against a fixed list.
+		$code = isset( $_GET[ self::RESULT_ARG ] ) ? sanitize_key( wp_unslash( $_GET[ self::RESULT_ARG ] ) ) : '';
+		if ( '' === $code ) {
+			return;
+		}
+
+		if ( 'ok' === $code ) {
+			wp_admin_notice( __( 'Connected to Brewfather.', 'brew-log-for-brewfather' ), array( 'type' => 'success' ) );
+			return;
+		}
+
+		$message = Api_Client::error_message( $code );
+		if ( '' !== $message ) {
+			wp_admin_notice(
+				/* translators: %s: reason, e.g. "Brewfather rejected the API credentials." */
+				sprintf( __( 'Connection failed: %s', 'brew-log-for-brewfather' ), $message ),
+				array( 'type' => 'error' )
+			);
+		}
+	}
+
+	/**
+	 * Explains where to find the credentials.
+	 */
+	public static function render_account_intro() {
+		echo '<p>' . esc_html__( 'Find your user ID and create an API key in Brewfather under Settings → API keys. The key needs the recipes.read, batches.read and inventory.read scopes.', 'brew-log-for-brewfather' ) . '</p>';
+	}
+
+	/**
+	 * Renders the user ID field.
+	 */
+	public static function render_user_id_field() {
+		printf(
+			'<input type="text" id="%1$s" name="%1$s" value="%2$s" class="regular-text" autocomplete="off">',
+			esc_attr( Options::USER_ID ),
+			esc_attr( get_option( Options::USER_ID, '' ) )
+		);
+	}
+
+	/**
+	 * Renders the API key field. The saved key is never printed.
+	 */
+	public static function render_api_key_field() {
+		$saved = '' !== (string) get_option( Options::API_KEY, '' );
+
+		printf(
+			'<input type="password" id="%1$s" name="%1$s" value="" class="regular-text" autocomplete="new-password">',
+			esc_attr( Options::API_KEY )
+		);
+		if ( $saved ) {
+			echo '<p class="description">' . esc_html__( 'A key is saved. Leave empty to keep it.', 'brew-log-for-brewfather' ) . '</p>';
+		}
+	}
+}

@@ -32,7 +32,11 @@ final class Plugin {
 			self::activate();
 		}
 
-		// Feature modules (settings, shortcodes) register here.
+		if ( is_admin() ) {
+			Settings::init();
+		}
+
+		// Feature modules (shortcodes) register here.
 	}
 
 	/**
