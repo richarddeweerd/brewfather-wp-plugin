@@ -1,93 +1,128 @@
-# Brewfather-wp-plugin
+# Brew Log for Brewfather
 
+A WordPress plugin that shows your [Brewfather](https://brewfather.app) recipes, batches and stock on your website. It is written by R. de Weerd and is not affiliated with Brewfather.
 
+- Lists of recipes and batches, and a page for each recipe and batch
+- Ingredients that you can hide from visitors or from logged-in users
+- Stock that only brewers can see
+- Notes on batches, added by logged-in users
+- English and Dutch
 
-## Getting started
+Requires WordPress 6.4+ and PHP 7.4+.
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+## How to
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+### 1. Install
 
-## Add your files
+Download `brew-log-for-brewfather-<version>.zip` from the [releases](https://gitlab.deweerd.biz/mythotec/brewfather-wp-plugin/-/releases). In WordPress, upload it under **Plugins → Add New → Upload Plugin** and activate it.
 
-* [Create](https://docs.gitlab.com/user/project/repository/web_editor/#create-a-file) or [upload](https://docs.gitlab.com/user/project/repository/web_editor/#upload-a-file) files
-* [Add files using the command line](https://docs.gitlab.com/topics/git/add_files/#add-files-to-a-git-repository) or push an existing Git repository with the following command:
+### 2. Connect Brewfather
+
+1. In Brewfather, go to **Settings → API keys** and create a key with the scopes `recipes.read`, `batches.read` and `inventory.read`. Note your user ID and the key.
+2. In WordPress, go to **Settings → Brew Log for Brewfather**, fill in the user ID and API key, and click **Save Changes**.
+3. Click **Test connection**. You should see "Connected to Brewfather."
+
+### 3. Add a page
+
+Create a page (for example "Our beers") and add a shortcode block with:
 
 ```
-cd existing_repo
-git remote add origin https://gitlab.deweerd.biz/mythotec/brewfather-wp-plugin.git
-git branch -M main
-git push -uf origin main
+[brewfather_recipes]
 ```
 
-## Integrate with your tools
+Publish the page. Visitors see the list and can click through to each recipe and its batches.
 
-* [Set up project integrations](https://gitlab.deweerd.biz/mythotec/brewfather-wp-plugin/-/settings/integrations)
+### 4. Set up brewers
 
-## Collaborate with your team
+On **Users**, give the people who brew with you the **Brewer** role. Brewers always see the ingredients and can see the stock. Administrators can do everything brewers can.
 
-* [Invite team members and collaborators](https://docs.gitlab.com/user/project/members/)
-* [Create a new merge request](https://docs.gitlab.com/user/project/merge_requests/creating_merge_requests/)
-* [Automatically close issues from merge requests](https://docs.gitlab.com/user/project/issues/managing_issues/#closing-issues-automatically)
-* [Enable merge request approvals](https://docs.gitlab.com/user/project/merge_requests/approvals/)
-* [Set auto-merge](https://docs.gitlab.com/user/project/merge_requests/auto_merge/)
+### 5. Choose who sees ingredients
 
-## Test and Deploy
+Under **Settings → Brew Log for Brewfather → Ingredients**, you can hide the ingredients of your recipes:
 
-Use the built-in continuous integration in GitLab.
+| Setting | Visitors | Logged-in users | Brewers and admins |
+|---|---|---|---|
+| Nothing checked | see them | see them | see them |
+| Hide from visitors | hidden | see them | see them |
+| Hide from logged-in users | hidden | hidden | see them |
 
-* [Get started with GitLab CI/CD](https://docs.gitlab.com/ci/quick_start/)
-* [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/user/application_security/sast/)
-* [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/topics/autodevops/requirements/)
-* [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/user/clusters/agent/)
-* [Set up protected environments](https://docs.gitlab.com/ci/environments/protected_environments/)
+## Examples
 
-***
+**All recipes, newest first:**
 
-# Editing this README
+```
+[brewfather_recipes]
+```
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+**All batches, newest brew date first.** Archived batches are left out:
 
-## Suggestions for a good README
+```
+[brewfather_batches]
+```
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+**What's in the fermenter right now:**
 
-## Name
-Choose a self-explaining name for your project.
+```
+[brewfather_batches status="fermenting"]
+```
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+The status can be `planning`, `brewing`, `fermenting`, `conditioning`, `completed` or `archived`.
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+**A "ready to drink" page:**
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+```
+<h2>Conditioning</h2>
+[brewfather_batches status="conditioning"]
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+<h2>Ready</h2>
+[brewfather_batches status="completed"]
+```
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+**The archive of old batches:**
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+```
+[brewfather_batches status="archived"]
+```
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+**A stock page for brewers.** Put it on a private or members-only page. Anyone who is not a brewer sees nothing:
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+```
+[brewfather_stock]
+```
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+**Linking straight to one recipe or batch.** Any page with one of the shortcodes shows a single recipe or batch when you add its Brewfather ID to the address: You can find the ID by opening the recipe or batch from a list on your site and copying the address.
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+```
+https://example.com/our-beers/?recipe=<recipe-id>
+https://example.com/our-beers/?batch=<batch-id>
+```
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+The recipe page shows the style, ABV, IBU, colour, batch size, ingredients and every batch brewed from it. The batch page shows its recipe, status, brew date, measured OG, FG and ABV, and the batch notes.
+
+## Batch notes
+
+Logged-in users can add notes at the bottom of a batch page, for example tasting notes or what happened on brew day. They can edit and delete their own notes. Brewers and administrators can delete any note. Visitors see a link to log in instead.
+
+Notes are stored in WordPress, not in Brewfather.
+
+## Caching
+
+Brewfather allows a few hundred API calls per hour, so the plugin stores what it fetches. Changes you make in Brewfather show up on the site after the **cache timeout** (60 minutes by default). To see them right away, click **Clear cache now** on the settings page.
+
+If Brewfather is busy or unreachable, the plugin keeps showing the last data it fetched (up to a week old).
+
+## Development
+
+The checks run in GitLab CI. With PHP and Composer installed:
+
+```
+composer install
+composer test      # PHPUnit
+composer phpcs     # WordPress coding standards
+```
+
+After changing any text, run `bin/update-translations.sh` and fill in the Dutch translations in `languages/brew-log-for-brewfather-nl_NL.po`. See `CLAUDE.md` for the architecture.
 
 ## License
-For open source projects, say how it is licensed.
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+GPL-2.0-or-later

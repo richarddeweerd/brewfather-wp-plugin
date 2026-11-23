@@ -27,10 +27,30 @@ This plugin reads data from the Brewfather API (https://api.brewfather.app) usin
 3. Add `[brewfather_recipes]` or `[brewfather_batches]` to a page. Brewers can be shown `[brewfather_stock]`.
 4. Give brewing members the Brewer role on the Users screen.
 
+== Frequently Asked Questions ==
+
+= Which shortcodes are there? =
+
+* `[brewfather_recipes]` lists all recipes, newest first.
+* `[brewfather_batches]` lists all batches except archived ones, newest brew date first.
+* `[brewfather_batches status="fermenting"]` lists only batches with that status: planning, brewing, fermenting, conditioning, completed or archived.
+* `[brewfather_stock]` lists your ingredient stock. Only brewers and administrators see it.
+
+A page with any of these shortcodes also shows a single recipe or batch when opened with `?recipe=<id>` or `?batch=<id>`. The lists link there automatically.
+
+= Who sees what? =
+
+Visitors and logged-in users see recipes and batches. You can hide the ingredients from visitors, or from everyone who is not a brewer, in the settings. Users with the Brewer role always see the ingredients and can see the stock. Logged-in users can read and add batch notes.
+
+= Why don't my changes in Brewfather show up? =
+
+Brewfather data is cached for the cache timeout (60 minutes by default). Click "Clear cache now" in the settings to fetch it again right away.
+
 == Changelog ==
 
 = 0.1.1 =
 * The plugin author is now shown as R. de Weerd.
+* Usage examples in the FAQ.
 
 = 0.1.0 =
 * Shortcodes [brewfather_recipes], [brewfather_batches] and [brewfather_stock].
