@@ -20,7 +20,7 @@ final class Settings {
 	const PAGE = 'brew-log-for-brewfather';
 
 	/**
-	 * admin-post.php action for the connection test.
+	 * Action name (for admin-post.php) of the connection test.
 	 */
 	const TEST_ACTION = 'blfb_test_connection';
 
