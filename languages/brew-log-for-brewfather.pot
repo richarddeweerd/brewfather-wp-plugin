@@ -73,3 +73,21 @@ msgstr ""
 #, php-format
 msgid "Connection failed: %s"
 msgstr ""
+
+msgid "Cache"
+msgstr ""
+
+msgid "Cache timeout"
+msgstr ""
+
+msgid "minutes"
+msgstr ""
+
+msgid "Clear cache now"
+msgstr ""
+
+msgid "The cache has been cleared."
+msgstr ""
+
+msgid "Brewfather data is stored for a while so the site stays fast and Brewfather is not asked too often. Changes in Brewfather show up on the site after the cache timeout."
+msgstr ""

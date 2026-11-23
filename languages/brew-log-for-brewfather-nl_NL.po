@@ -71,3 +71,21 @@ msgstr "Er is een sleutel opgeslagen. Laat dit veld leeg om die te behouden."
 #, php-format
 msgid "Connection failed: %s"
 msgstr "Verbinding mislukt: %s"
+
+msgid "Cache"
+msgstr "Cache"
+
+msgid "Cache timeout"
+msgstr "Cachetijd"
+
+msgid "minutes"
+msgstr "minuten"
+
+msgid "Clear cache now"
+msgstr "Cache nu legen"
+
+msgid "The cache has been cleared."
+msgstr "De cache is geleegd."
+
+msgid "Brewfather data is stored for a while so the site stays fast and Brewfather is not asked too often. Changes in Brewfather show up on the site after the cache timeout."
+msgstr "Gegevens uit Brewfather worden een tijdje bewaard, zodat de site snel blijft en Brewfather niet te vaak wordt bevraagd. Wijzigingen in Brewfather verschijnen op de site na afloop van de cachetijd."

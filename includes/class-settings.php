@@ -30,12 +30,23 @@ final class Settings {
 	const RESULT_ARG = 'blfb_connection';
 
 	/**
+	 * Action name (for admin-post.php) of the clear cache button.
+	 */
+	const CLEAR_ACTION = 'blfb_clear_cache';
+
+	/**
+	 * Query argument set after the cache was cleared.
+	 */
+	const CLEARED_ARG = 'blfb_cache_cleared';
+
+	/**
 	 * Registers the hooks.
 	 */
 	public static function init() {
 		add_action( 'admin_menu', array( __CLASS__, 'add_page' ) );
 		add_action( 'admin_init', array( __CLASS__, 'register' ) );
 		add_action( 'admin_post_' . self::TEST_ACTION, array( __CLASS__, 'handle_test_connection' ) );
+		add_action( 'admin_post_' . self::CLEAR_ACTION, array( __CLASS__, 'handle_clear_cache' ) );
 		add_filter( 'plugin_action_links_' . plugin_basename( BLFB_PLUGIN_FILE ), array( __CLASS__, 'add_settings_link' ) );
 
 		// Other credentials may mean another Brewfather account.
@@ -79,6 +90,16 @@ final class Settings {
 			)
 		);
 
+		register_setting(
+			self::PAGE,
+			Options::CACHE_TIMEOUT,
+			array(
+				'type'              => 'integer',
+				'sanitize_callback' => array( __CLASS__, 'sanitize_cache_timeout' ),
+				'default'           => Options::DEFAULT_CACHE_MINUTES,
+			)
+		);
+
 		add_settings_section(
 			'blfb_account',
 			__( 'Brewfather account', 'brew-log-for-brewfather' ),
@@ -101,6 +122,42 @@ final class Settings {
 			'blfb_account',
 			array( 'label_for' => Options::API_KEY )
 		);
+
+		self::register_cache_section();
+	}
+
+	/**
+	 * Adds the cache section. Called from register() so the sections appear in order.
+	 */
+	private static function register_cache_section() {
+		add_settings_section(
+			'blfb_cache',
+			__( 'Cache', 'brew-log-for-brewfather' ),
+			array( __CLASS__, 'render_cache_intro' ),
+			self::PAGE
+		);
+		add_settings_field(
+			Options::CACHE_TIMEOUT,
+			__( 'Cache timeout', 'brew-log-for-brewfather' ),
+			array( __CLASS__, 'render_cache_timeout_field' ),
+			self::PAGE,
+			'blfb_cache',
+			array( 'label_for' => Options::CACHE_TIMEOUT )
+		);
+	}
+
+	/**
+	 * Cache timeout in whole minutes, at least 1.
+	 *
+	 * @param mixed $value Submitted value.
+	 * @return int
+	 */
+	public static function sanitize_cache_timeout( $value ) {
+		if ( '' === trim( (string) $value ) ) {
+			return Options::DEFAULT_CACHE_MINUTES;
+		}
+
+		return max( 1, absint( $value ) );
 	}
 
 	/**
@@ -168,6 +225,39 @@ final class Settings {
 	}
 
 	/**
+	 * Clears the cache and redirects back to the page.
+	 */
+	public static function handle_clear_cache() {
+		if ( ! current_user_can( Access::ADMIN_CAP ) ) {
+			wp_die( esc_html__( 'You are not allowed to do this.', 'brew-log-for-brewfather' ), 403 );
+		}
+		check_admin_referer( self::CLEAR_ACTION );
+
+		self::clear_cache();
+
+		wp_safe_redirect( add_query_arg( self::CLEARED_ARG, '1', admin_url( 'options-general.php?page=' . self::PAGE ) ) );
+		exit;
+	}
+
+	/**
+	 * Renders a button that posts one admin-post.php action.
+	 *
+	 * @param string $action Action name.
+	 * @param string $label  Button label.
+	 */
+	private static function render_action_button( $action, $label ) {
+		?>
+		<form action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post" style="display:inline-block;margin-right:8px">
+			<input type="hidden" name="action" value="<?php echo esc_attr( $action ); ?>">
+			<?php
+			wp_nonce_field( $action );
+			submit_button( $label, 'secondary', 'submit', false );
+			?>
+		</form>
+		<?php
+	}
+
+	/**
 	 * Renders the page.
 	 */
 	public static function render_page() {
@@ -187,13 +277,12 @@ final class Settings {
 				?>
 			</form>
 
-			<form action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post">
-				<input type="hidden" name="action" value="<?php echo esc_attr( self::TEST_ACTION ); ?>">
+			<p>
 				<?php
-				wp_nonce_field( self::TEST_ACTION );
-				submit_button( __( 'Test connection', 'brew-log-for-brewfather' ), 'secondary', 'submit', false );
+				self::render_action_button( self::TEST_ACTION, __( 'Test connection', 'brew-log-for-brewfather' ) );
+				self::render_action_button( self::CLEAR_ACTION, __( 'Clear cache now', 'brew-log-for-brewfather' ) );
 				?>
-			</form>
+			</p>
 		</div>
 		<?php
 	}
@@ -203,6 +292,11 @@ final class Settings {
 	 * from one.
 	 */
 	private static function render_test_result() {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Display only; the code is checked against a fixed list.
+		if ( isset( $_GET[ self::CLEARED_ARG ] ) ) {
+			wp_admin_notice( __( 'The cache has been cleared.', 'brew-log-for-brewfather' ), array( 'type' => 'success' ) );
+		}
+
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Display only; the code is checked against a fixed list.
 		$code = isset( $_GET[ self::RESULT_ARG ] ) ? sanitize_key( wp_unslash( $_GET[ self::RESULT_ARG ] ) ) : '';
 		if ( '' === $code ) {
@@ -229,6 +323,25 @@ final class Settings {
 	 */
 	public static function render_account_intro() {
 		echo '<p>' . esc_html__( 'Find your user ID and create an API key in Brewfather under Settings → API keys. The key needs the recipes.read, batches.read and inventory.read scopes.', 'brew-log-for-brewfather' ) . '</p>';
+	}
+
+	/**
+	 * Explains the cache.
+	 */
+	public static function render_cache_intro() {
+		echo '<p>' . esc_html__( 'Brewfather data is stored for a while so the site stays fast and Brewfather is not asked too often. Changes in Brewfather show up on the site after the cache timeout.', 'brew-log-for-brewfather' ) . '</p>';
+	}
+
+	/**
+	 * Renders the cache timeout field.
+	 */
+	public static function render_cache_timeout_field() {
+		printf(
+			'<input type="number" id="%1$s" name="%1$s" value="%2$d" min="1" step="1" class="small-text"> %3$s',
+			esc_attr( Options::CACHE_TIMEOUT ),
+			absint( get_option( Options::CACHE_TIMEOUT, Options::DEFAULT_CACHE_MINUTES ) ),
+			esc_html__( 'minutes', 'brew-log-for-brewfather' )
+		);
 	}
 
 	/**

@@ -72,4 +72,11 @@ class SettingsTest extends TestCase {
 		$this->assertSame( '', Api_Client::error_message( 'something_else' ) );
 		$this->assertNotSame( '', Api_Client::error_message( 'blfb_unauthorized' ) );
 	}
+
+	public function test_cache_timeout_is_whole_minutes_and_at_least_one() {
+		$this->assertSame( 15, Settings::sanitize_cache_timeout( '15' ) );
+		$this->assertSame( 1, Settings::sanitize_cache_timeout( '0' ) );
+		$this->assertSame( 5, Settings::sanitize_cache_timeout( '-5' ) );
+		$this->assertSame( 60, Settings::sanitize_cache_timeout( '' ) );
+	}
 }
