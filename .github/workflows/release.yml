@@ -1,0 +1,73 @@
+# Runs on GitHub when the GitLab CI job publish-github pushes a tag.
+# 1. Creates a GitHub release with the plugin zip and the readme.txt changelog.
+# 2. Deploys the tag to the WordPress.org plugin directory, once the
+#    repository secrets SVN_USERNAME and SVN_PASSWORD are set.
+#
+# Run it by hand (Actions → Release → Run workflow) to create the release of
+# an older tag; that skips the WordPress.org deploy unless asked for.
+name: Release
+
+on:
+  push:
+    tags:
+      - "*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag to release, e.g. 0.1.1"
+        required: true
+      deploy:
+        description: "Also deploy to WordPress.org"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+env:
+  TAG: ${{ github.event.inputs.tag || github.ref_name }}
+
+jobs:
+  github-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Build zip and release notes
+        run: |
+          mkdir -p dist
+          bin/build-zip.sh "$TAG" dist
+          bin/changelog.sh "$TAG" readme.txt > dist/notes.md
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.TAG }}
+          name: ${{ env.TAG }}
+          body_path: dist/notes.md
+          files: dist/brew-log-for-brewfather-*.zip
+
+  wordpress-org:
+    needs: github-release
+    if: github.event_name == 'push' || github.event.inputs.deploy == 'true'
+    runs-on: ubuntu-latest
+    env:
+      SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+      SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+    steps:
+      - name: Skip until WordPress.org credentials are set
+        if: env.SVN_USERNAME == ''
+        run: echo "SVN_USERNAME is not set; not deploying to WordPress.org."
+
+      - uses: actions/checkout@v4
+        if: env.SVN_USERNAME != ''
+        with:
+          ref: ${{ env.TAG }}
+
+      - name: Deploy to WordPress.org
+        if: env.SVN_USERNAME != ''
+        uses: 10up/action-wordpress-plugin-deploy@stable
+        env:
+          SLUG: brew-log-for-brewfather
+          VERSION: ${{ env.TAG }}

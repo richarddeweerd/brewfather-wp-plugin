@@ -1,8 +1,8 @@
 === Brew Log for Brewfather ===
-Contributors: mythotec
+Contributors: richarddeweerd
 Tags: brewfather, homebrew, beer, recipes, brewing
 Requires at least: 6.4
-Tested up to: 6.8
+Tested up to: 7.1
 Requires PHP: 7.4
 Stable tag: 0.1.1
 License: GPLv2 or later
@@ -51,6 +51,7 @@ Brewfather data is cached for the cache timeout (60 minutes by default). Click "
 = 0.1.1 =
 * The plugin author is now shown as R. de Weerd.
 * Usage examples in the FAQ.
+* Tested with WordPress 7.1.
 
 = 0.1.0 =
 * Shortcodes [brewfather_recipes], [brewfather_batches] and [brewfather_stock].
