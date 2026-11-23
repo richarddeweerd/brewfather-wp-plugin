@@ -23,9 +23,16 @@ This plugin reads data from the Brewfather API (https://api.brewfather.app) usin
 == Installation ==
 
 1. Install and activate the plugin.
-2. Enter your Brewfather user ID and API key in the plugin settings.
+2. Go to Settings → Brew Log for Brewfather, enter your Brewfather user ID and API key, and click Test connection.
+3. Add `[brewfather_recipes]` or `[brewfather_batches]` to a page. Brewers can be shown `[brewfather_stock]`.
+4. Give brewing members the Brewer role on the Users screen.
 
 == Changelog ==
 
 = 0.1.0 =
-* Initial plugin skeleton.
+* Shortcodes [brewfather_recipes], [brewfather_batches] and [brewfather_stock].
+* Recipe view with details, Ingredients and all its Batches; Batch view with measured values.
+* Settings for the Brewfather API credentials (with connection test), cache timeout and hiding Ingredients from visitors or users.
+* Brewer role: Brewers always see Ingredients and can see Stock.
+* Batch notes for logged-in users.
+* English and Dutch.
