@@ -29,7 +29,7 @@ final class Stock {
 	 */
 	public static function init() {
 		add_shortcode( 'brewfather_stock', array( __CLASS__, 'shortcode' ) );
-		add_filter( 'blfb_ingredient_columns', array( __CLASS__, 'add_column' ), 10, 2 );
+		add_filter( 'blfb_ingredient_columns', array( __CLASS__, 'add_column' ) );
 		add_filter( 'blfb_ingredient_cells', array( __CLASS__, 'add_cell' ), 10, 3 );
 	}
 
@@ -112,10 +112,9 @@ final class Stock {
 	 * Adds a Stock column to the Ingredient tables for Brewers.
 	 *
 	 * @param string[] $columns Column headings.
-	 * @param string   $type    Ingredient type.
 	 * @return string[]
 	 */
-	public static function add_column( $columns, $type ) {
+	public static function add_column( $columns ) {
 		if ( Access::at_least( Access::BREWER ) ) {
 			$columns[] = __( 'In stock', 'brew-log-for-brewfather' );
 		}
@@ -188,6 +187,7 @@ final class Stock {
 			'fermentables' => array( 'kg', 2 ),
 			'hops'         => array( 'g', 0 ),
 		);
+
 		list( $unit, $decimals ) = isset( $units[ $type ] ) ? $units[ $type ] : array( Frontend::field( $item, 'unit' ), 1 );
 
 		return Frontend::unit( Frontend::value( $item, 'inventory' ), $unit, $decimals );
