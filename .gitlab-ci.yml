@@ -1,5 +1,6 @@
 stages:
   - test
+  - publish
 
 .composer:
   # Needs a Docker executor; the untagged runner is shell-only.
@@ -64,3 +65,23 @@ test:
   image: php:8.3-cli
   script:
     - composer test
+
+# Publishes main and tags to the public GitHub repo, without CLAUDE.md and
+# docs/ (see bin/publish-github.sh). Needs the masked, protected CI/CD
+# variable GITHUB_TOKEN: a GitHub token with Contents read/write on the repo.
+publish-github:
+  stage: publish
+  tags:
+    - docker
+  image: python:3.12-slim
+  resource_group: github
+  variables:
+    GITHUB_REPO: github.com/richarddeweerd/brewfather-wp-plugin.git
+  rules:
+    - if: '$GITHUB_TOKEN && ($CI_COMMIT_BRANCH == "main" || $CI_COMMIT_TAG)'
+  before_script:
+    - apt-get update -qq && apt-get install -y -qq git > /dev/null
+    - pip install -q git-filter-repo
+  script:
+    # The CI checkout is shallow; the script clones the full history itself.
+    - bash bin/publish-github.sh "$CI_REPOSITORY_URL" "https://x-access-token:${GITHUB_TOKEN}@${GITHUB_REPO}"
