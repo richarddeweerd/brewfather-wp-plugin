@@ -14,16 +14,18 @@ stages:
     paths:
       - vendor/
 
-# Syntax check on the oldest and newest supported PHP.
+# Syntax check on the oldest and newest supported PHP. Plain `php -l` with no
+# Composer, because the php:7.4 image's Debian mirrors are gone (no apt-get).
 lint:
-  extends: .composer
   stage: test
+  tags:
+    - docker
   image: php:${PHP_VERSION}-cli
   parallel:
     matrix:
       - PHP_VERSION: ["7.4", "8.3"]
   script:
-    - composer lint
+    - find . -name '*.php' -not -path './vendor/*' -print0 | xargs -0 -n1 php -l
 
 # WordPress coding standards and PHP 7.4+ compatibility.
 phpcs:
