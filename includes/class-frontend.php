@@ -400,7 +400,7 @@ final class Frontend {
 	 * @param string   $css_class Extra class.
 	 * @return string
 	 */
-	private static function table( array $headings, $rows, $css_class ) {
+	public static function table( array $headings, $rows, $css_class ) {
 		$head = '';
 		foreach ( $headings as $heading ) {
 			$head .= '<th scope="col">' . esc_html( $heading ) . '</th>';
@@ -435,7 +435,7 @@ final class Frontend {
 	 * @param string $html Inner HTML.
 	 * @return string
 	 */
-	private static function wrap( $html ) {
+	public static function wrap( $html ) {
 		wp_enqueue_style( 'blfb-frontend' );
 
 		return '<div class="blfb">' . $html . '</div>';
@@ -495,7 +495,7 @@ final class Frontend {
 	 * @param \WP_Error $error Error from the API client.
 	 * @return string
 	 */
-	private static function error( $error ) {
+	public static function error( $error ) {
 		return '<p class="blfb-error">' . esc_html( $error->get_error_message() ) . '</p>';
 	}
 
@@ -505,7 +505,7 @@ final class Frontend {
 	 * @param string $message Message.
 	 * @return string
 	 */
-	private static function notice( $message ) {
+	public static function notice( $message ) {
 		return '<p class="blfb-notice">' . esc_html( $message ) . '</p>';
 	}
 

@@ -295,3 +295,4 @@ require dirname( __DIR__ ) . '/includes/class-access.php';
 require dirname( __DIR__ ) . '/includes/class-settings.php';
 require dirname( __DIR__ ) . '/includes/class-catalog.php';
 require dirname( __DIR__ ) . '/includes/class-frontend.php';
+require dirname( __DIR__ ) . '/includes/class-stock.php';

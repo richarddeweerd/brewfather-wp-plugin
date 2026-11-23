@@ -37,6 +37,7 @@ final class Plugin {
 		}
 
 		Frontend::init();
+		Stock::init();
 	}
 
 	/**

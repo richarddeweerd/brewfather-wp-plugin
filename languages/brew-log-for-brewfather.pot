@@ -202,3 +202,12 @@ msgstr ""
 
 msgid "A key is saved. Leave empty to keep it."
 msgstr ""
+
+msgid "Type"
+msgstr ""
+
+msgid "In stock"
+msgstr ""
+
+msgid "There is nothing in stock yet."
+msgstr ""

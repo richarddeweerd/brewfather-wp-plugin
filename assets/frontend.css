@@ -37,3 +37,6 @@
 		overflow-x: auto;
 	}
 }
+.blfb-empty td {
+	opacity: 0.55;
+}

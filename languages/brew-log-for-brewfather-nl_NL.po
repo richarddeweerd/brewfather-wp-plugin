@@ -204,3 +204,12 @@ msgstr "minuten"
 
 msgid "A key is saved. Leave empty to keep it."
 msgstr "Er is een sleutel opgeslagen. Laat dit veld leeg om die te behouden."
+
+msgid "Type"
+msgstr "Soort"
+
+msgid "In stock"
+msgstr "Op voorraad"
+
+msgid "There is nothing in stock yet."
+msgstr "Er is nog niets op voorraad."
