@@ -161,11 +161,11 @@ final class Frontend {
 		$html .= '<h2 class="blfb-title">' . esc_html( self::field( $recipe, 'name' ) ) . '</h2>';
 		$html .= self::details(
 			array(
-				__( 'Style', 'brew-log-for-brewfather' )        => self::field( $recipe, 'style.name' ),
-				__( 'ABV', 'brew-log-for-brewfather' )          => self::percent( self::value( $recipe, 'abv' ) ),
-				__( 'IBU', 'brew-log-for-brewfather' )          => self::number( self::value( $recipe, 'ibu' ), 0 ),
-				__( 'Colour (EBC)', 'brew-log-for-brewfather' ) => self::number( self::value( $recipe, 'color' ), 0 ),
-				__( 'Batch size', 'brew-log-for-brewfather' )   => self::unit( self::value( $recipe, 'batchSize' ), 'L', 1 ),
+				array( __( 'Style', 'brew-log-for-brewfather' ), self::field( $recipe, 'style.name' ) ),
+				array( __( 'ABV', 'brew-log-for-brewfather' ), self::percent( self::value( $recipe, 'abv' ) ) ),
+				array( __( 'IBU', 'brew-log-for-brewfather' ), self::number( self::value( $recipe, 'ibu' ), 0 ) ),
+				array( __( 'Colour (EBC)', 'brew-log-for-brewfather' ), self::number( self::value( $recipe, 'color' ), 0 ) ),
+				array( __( 'Batch size', 'brew-log-for-brewfather' ), self::unit( self::value( $recipe, 'batchSize' ), 'L', 1 ) ),
 			)
 		);
 
@@ -208,12 +208,12 @@ final class Frontend {
 		$html .= '<h2 class="blfb-title">' . esc_html( self::batch_title( $batch ) ) . '</h2>';
 		$html .= self::details(
 			array(
-				__( 'Recipe', 'brew-log-for-brewfather' )           => array( 'html' => $recipe ),
-				__( 'Status', 'brew-log-for-brewfather' )           => self::status_label( self::field( $batch, 'status' ) ),
-				__( 'Brew date', 'brew-log-for-brewfather' )        => self::date( self::value( $batch, 'brewDate' ) ),
-				__( 'Original gravity', 'brew-log-for-brewfather' ) => self::number( self::value( $batch, 'measuredOg' ), 3 ),
-				__( 'Final gravity', 'brew-log-for-brewfather' )    => self::number( self::value( $batch, 'measuredFg' ), 3 ),
-				__( 'ABV', 'brew-log-for-brewfather' )              => self::percent( self::value( $batch, 'measuredAbv' ) ),
+				array( __( 'Recipe', 'brew-log-for-brewfather' ), array( 'html' => $recipe ) ),
+				array( __( 'Status', 'brew-log-for-brewfather' ), self::status_label( self::field( $batch, 'status' ) ) ),
+				array( __( 'Brew date', 'brew-log-for-brewfather' ), self::date( self::value( $batch, 'brewDate' ) ) ),
+				array( __( 'Original gravity', 'brew-log-for-brewfather' ), self::number( self::value( $batch, 'measuredOg' ), 3 ) ),
+				array( __( 'Final gravity', 'brew-log-for-brewfather' ), self::number( self::value( $batch, 'measuredFg' ), 3 ) ),
+				array( __( 'ABV', 'brew-log-for-brewfather' ), self::percent( self::value( $batch, 'measuredAbv' ) ) ),
 			)
 		);
 
@@ -410,15 +410,15 @@ final class Frontend {
 	}
 
 	/**
-	 * A definition list of label => value. Empty values are left out. A value
-	 * of array( 'html' => ... ) is printed as already-escaped HTML.
+	 * A definition list. Empty values are left out. A value of
+	 * array( 'html' => ... ) is printed as already-escaped HTML.
 	 *
-	 * @param array $items Label => value.
+	 * @param array $items List of array( label, value ).
 	 * @return string
 	 */
 	private static function details( array $items ) {
 		$html = '';
-		foreach ( $items as $label => $value ) {
+		foreach ( $items as list( $label, $value ) ) {
 			$value_html = is_array( $value ) ? $value['html'] : esc_html( $value );
 			if ( '' === $value_html || '–' === $value_html ) {
 				continue;
@@ -476,7 +476,7 @@ final class Frontend {
 		}
 
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only view selection.
-		return self::sanitize_id( wp_unslash( $_GET[ $arg ] ) );
+		return self::sanitize_id( sanitize_text_field( wp_unslash( $_GET[ $arg ] ) ) );
 	}
 
 	/**

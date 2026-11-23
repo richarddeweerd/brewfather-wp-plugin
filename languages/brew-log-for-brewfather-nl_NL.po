@@ -41,71 +41,6 @@ msgstr "Brewfather is op dit moment druk. Probeer het later opnieuw."
 msgid "Brewfather could not be reached. Please try again later."
 msgstr "Brewfather is niet bereikbaar. Probeer het later opnieuw."
 
-msgid "Brewfather account"
-msgstr "Brewfather-account"
-
-msgid "User ID"
-msgstr "Gebruikers-ID"
-
-msgid "API key"
-msgstr "API-sleutel"
-
-msgid "Ingredients"
-msgstr "Ingrediënten"
-
-msgid "Hide Ingredients"
-msgstr "Ingrediënten verbergen"
-
-msgid "Cache"
-msgstr "Cache"
-
-msgid "Cache timeout"
-msgstr "Cachetijd"
-
-msgid "Settings"
-msgstr "Instellingen"
-
-msgid "You are not allowed to do this."
-msgstr "Je hebt geen toestemming om dit te doen."
-
-msgid "Test connection"
-msgstr "Verbinding testen"
-
-msgid "Clear cache now"
-msgstr "Cache nu legen"
-
-msgid "The cache has been cleared."
-msgstr "De cache is geleegd."
-
-msgid "Connected to Brewfather."
-msgstr "Verbonden met Brewfather."
-
-#. translators: %s: reason, e.g. "Brewfather rejected the API credentials."
-#, php-format
-msgid "Connection failed: %s"
-msgstr "Verbinding mislukt: %s"
-
-msgid "Find your user ID and create an API key in Brewfather under Settings → API keys. The key needs the recipes.read, batches.read and inventory.read scopes."
-msgstr "Je gebruikers-ID en een API-sleutel vind je in Brewfather onder Instellingen → API-sleutels. De sleutel heeft de scopes recipes.read, batches.read en inventory.read nodig."
-
-msgid "Brewers and administrators always see the Ingredients of a Recipe."
-msgstr "Brouwers en beheerders zien altijd de ingrediënten van een recept."
-
-msgid "Hide Ingredients from visitors (not logged in)"
-msgstr "Ingrediënten verbergen voor bezoekers (niet ingelogd)"
-
-msgid "Hide Ingredients from logged-in users who are not Brewers (also hides them from visitors)"
-msgstr "Ingrediënten verbergen voor ingelogde gebruikers die geen brouwer zijn (ook verborgen voor bezoekers)"
-
-msgid "Brewfather data is stored for a while so the site stays fast and Brewfather is not asked too often. Changes in Brewfather show up on the site after the cache timeout."
-msgstr "Gegevens uit Brewfather worden een tijdje bewaard, zodat de site snel blijft en Brewfather niet te vaak wordt bevraagd. Wijzigingen in Brewfather verschijnen op de site na afloop van de cachetijd."
-
-msgid "minutes"
-msgstr "minuten"
-
-msgid "A key is saved. Leave empty to keep it."
-msgstr "Er is een sleutel opgeslagen. Laat dit veld leeg om die te behouden."
-
 msgid "There are no recipes yet."
 msgstr "Er zijn nog geen recepten."
 
@@ -199,8 +134,73 @@ msgstr "Leverancier"
 msgid "Name"
 msgstr "Naam"
 
+msgid "Ingredients"
+msgstr "Ingrediënten"
+
 msgid "Batch"
 msgstr "Batch"
 
 msgid "← Back to the list"
 msgstr "← Terug naar de lijst"
+
+msgid "Brewfather account"
+msgstr "Brewfather-account"
+
+msgid "User ID"
+msgstr "Gebruikers-ID"
+
+msgid "API key"
+msgstr "API-sleutel"
+
+msgid "Hide Ingredients"
+msgstr "Ingrediënten verbergen"
+
+msgid "Cache"
+msgstr "Cache"
+
+msgid "Cache timeout"
+msgstr "Cachetijd"
+
+msgid "Settings"
+msgstr "Instellingen"
+
+msgid "You are not allowed to do this."
+msgstr "Je hebt geen toestemming om dit te doen."
+
+msgid "Test connection"
+msgstr "Verbinding testen"
+
+msgid "Clear cache now"
+msgstr "Cache nu legen"
+
+msgid "The cache has been cleared."
+msgstr "De cache is geleegd."
+
+msgid "Connected to Brewfather."
+msgstr "Verbonden met Brewfather."
+
+#. translators: %s: reason, e.g. "Brewfather rejected the API credentials."
+#, php-format
+msgid "Connection failed: %s"
+msgstr "Verbinding mislukt: %s"
+
+msgid "Find your user ID and create an API key in Brewfather under Settings → API keys. The key needs the recipes.read, batches.read and inventory.read scopes."
+msgstr "Je gebruikers-ID en een API-sleutel vind je in Brewfather onder Instellingen → API-sleutels. De sleutel heeft de scopes recipes.read, batches.read en inventory.read nodig."
+
+msgid "Brewers and administrators always see the Ingredients of a Recipe."
+msgstr "Brouwers en beheerders zien altijd de ingrediënten van een recept."
+
+msgid "Hide Ingredients from visitors (not logged in)"
+msgstr "Ingrediënten verbergen voor bezoekers (niet ingelogd)"
+
+msgid "Hide Ingredients from logged-in users who are not Brewers (also hides them from visitors)"
+msgstr "Ingrediënten verbergen voor ingelogde gebruikers die geen brouwer zijn (ook verborgen voor bezoekers)"
+
+msgid "Brewfather data is stored for a while so the site stays fast and Brewfather is not asked too often. Changes in Brewfather show up on the site after the cache timeout."
+msgstr "Gegevens uit Brewfather worden een tijdje bewaard, zodat de site snel blijft en Brewfather niet te vaak wordt bevraagd. Wijzigingen in Brewfather verschijnen op de site na afloop van de cachetijd."
+
+msgid "minutes"
+msgstr "minuten"
+
+msgid "A key is saved. Leave empty to keep it."
+msgstr "Er is een sleutel opgeslagen. Laat dit veld leeg om die te behouden."

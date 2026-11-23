@@ -30,8 +30,19 @@ msgid "MythoTec"
 msgstr ""
 H
 msgcat --use-first --no-wrap --no-location $T/header.pot $T/code.pot -o $T/all.pot
-# Keep the committed header block of the .pot.
-{ sed -n '1,/^$/p' $L/$D.pot; sed '1,/^$/d' $T/all.pot; } > $L/$D.pot
+cat > $L/$D.pot <<'H'
+# Copyright (C) MythoTec
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Brew Log for Brewfather\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Domain: brew-log-for-brewfather\n"
+
+H
+sed '1,/^$/d' $T/all.pot >> $L/$D.pot
 msgmerge --quiet --no-wrap --no-fuzzy-matching --no-location --backup=none -U $L/$D-nl_NL.po $L/$D.pot
 msgattrib --no-obsolete --no-wrap -o $L/$D-nl_NL.po $L/$D-nl_NL.po
-echo "untranslated:"; msgattrib --untranslated --no-wrap $L/$D-nl_NL.po | grep -E '^msg(ctxt|id) ' | grep -v 'msgid ""$'
+echo "untranslated:"; msgattrib --untranslated --no-wrap $L/$D-nl_NL.po | grep -E '^msg(ctxt|id) ' | grep -v 'msgid ""$' || echo "  (none)"
