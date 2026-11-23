@@ -2,8 +2,7 @@
 set -e
 # Regenerates the .pot from the code (plus plugin header strings), merges it
 # into the Dutch .po and lists untranslated msgids. Needs gettext.
-# Fill in the listed msgstrs in the .po, then rebuild the .mo:
-#   msgfmt -o languages/brew-log-for-brewfather-nl_NL.mo languages/brew-log-for-brewfather-nl_NL.po
+# Also rebuilds the .mo. Fill in any listed msgstrs in the .po and run it again.
 
 cd "$(dirname "$0")/.."
 L=languages; D=brew-log-for-brewfather
@@ -46,3 +45,4 @@ sed '1,/^$/d' $T/all.pot >> $L/$D.pot
 msgmerge --quiet --no-wrap --no-fuzzy-matching --no-location --backup=none -U $L/$D-nl_NL.po $L/$D.pot
 msgattrib --no-obsolete --no-wrap -o $L/$D-nl_NL.po $L/$D-nl_NL.po
 echo "untranslated:"; msgattrib --untranslated --no-wrap $L/$D-nl_NL.po | grep -E '^msg(ctxt|id) ' | grep -v 'msgid ""$' || echo "  (none)"
+msgfmt --check -o $L/$D-nl_NL.mo $L/$D-nl_NL.po 2>&1 | grep -v 'header field' || true
