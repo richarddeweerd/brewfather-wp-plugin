@@ -47,6 +47,8 @@ jobs:
           name: ${{ env.TAG }}
           body_path: dist/notes.md
           files: dist/brew-log-for-brewfather-*.zip
+          # A release of an older tag, run by hand, must not become "Latest".
+          make_latest: ${{ github.event_name == 'push' }}
 
   wordpress-org:
     needs: github-release
