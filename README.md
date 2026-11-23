@@ -14,7 +14,7 @@ Requires WordPress 6.4+ and PHP 7.4+.
 
 ### 1. Install
 
-Download `brew-log-for-brewfather-<version>.zip` from the [releases](https://gitlab.deweerd.biz/mythotec/brewfather-wp-plugin/-/releases). In WordPress, upload it under **Plugins → Add New → Upload Plugin** and activate it.
+Download `brew-log-for-brewfather-<version>.zip` from the [releases](https://github.com/richarddeweerd/brewfather-wp-plugin/releases). In WordPress, upload it under **Plugins → Add New → Upload Plugin** and activate it.
 
 ### 2. Connect Brewfather
 
