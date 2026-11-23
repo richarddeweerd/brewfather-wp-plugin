@@ -1,0 +1,12 @@
+.git
+.gitignore
+.gitlab-ci.yml
+.distignore
+composer.json
+composer.lock
+phpcs.xml.dist
+vendor
+docs
+CLAUDE.md
+GLOSSARY.md
+README.md

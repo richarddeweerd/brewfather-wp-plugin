@@ -1,0 +1,24 @@
+{
+    "name": "mythotec/brew-log-for-brewfather",
+    "description": "WordPress plugin that shows Brewfather recipes, batches and stock.",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "php": ">=7.4"
+    },
+    "require-dev": {
+        "wp-coding-standards/wpcs": "^3.1",
+        "phpcompatibility/phpcompatibility-wp": "^2.1",
+        "php-parallel-lint/php-parallel-lint": "^1.4"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "scripts": {
+        "lint": "parallel-lint --exclude vendor .",
+        "phpcs": "phpcs",
+        "phpcbf": "phpcbf"
+    }
+}

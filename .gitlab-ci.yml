@@ -1,0 +1,31 @@
+stages:
+  - test
+
+.composer:
+  before_script:
+    - apt-get update -qq && apt-get install -y -qq git unzip > /dev/null
+    - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+    - composer install --no-interaction --no-progress
+  cache:
+    key: composer-$CI_JOB_NAME
+    paths:
+      - vendor/
+
+# Syntax check on the oldest and newest supported PHP.
+lint:
+  extends: .composer
+  stage: test
+  image: php:${PHP_VERSION}-cli
+  parallel:
+    matrix:
+      - PHP_VERSION: ["7.4", "8.3"]
+  script:
+    - composer lint
+
+# WordPress coding standards and PHP 7.4+ compatibility.
+phpcs:
+  extends: .composer
+  stage: test
+  image: php:8.3-cli
+  script:
+    - composer phpcs
