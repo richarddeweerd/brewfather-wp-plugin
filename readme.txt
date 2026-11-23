@@ -4,7 +4,7 @@ Tags: brewfather, homebrew, beer, recipes, brewing
 Requires at least: 6.4
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 0.1.0
+Stable tag: 0.1.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -28,6 +28,9 @@ This plugin reads data from the Brewfather API (https://api.brewfather.app) usin
 4. Give brewing members the Brewer role on the Users screen.
 
 == Changelog ==
+
+= 0.1.1 =
+* The plugin author is now shown as R. de Weerd.
 
 = 0.1.0 =
 * Shortcodes [brewfather_recipes], [brewfather_batches] and [brewfather_stock].
