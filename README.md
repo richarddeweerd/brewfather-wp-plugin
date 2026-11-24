@@ -99,6 +99,8 @@ https://example.com/our-beers/?batch=<batch-id>
 
 The recipe page shows the style, ABV, IBU, colour, batch size, ingredients and every batch brewed from it. The batch page shows its recipe, status, brew date, measured OG, FG and ABV, and the batch notes.
 
+More examples, including a full site setup, styling and PHP filters, are in [EXAMPLES.md](EXAMPLES.md).
+
 ## Batch notes
 
 Logged-in users can add notes at the bottom of a batch page, for example tasting notes or what happened on brew day. They can edit and delete their own notes. Brewers and administrators can delete any note. Visitors see a link to log in instead.

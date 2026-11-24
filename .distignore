@@ -16,3 +16,4 @@ phpunit.xml.dist
 bin
 .github
 .wordpress-org
+EXAMPLES.md
