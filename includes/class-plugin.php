@@ -23,7 +23,6 @@ final class Plugin {
 	 * Runs on every request once all plugins are loaded.
 	 */
 	public static function init() {
-		add_action( 'init', array( __CLASS__, 'load_textdomain' ) );
 		add_action( 'init', array( Access::class, 'translate_role_name' ), 20 );
 
 		// Activation hooks don't run when the plugin is updated in place, so
@@ -39,21 +38,6 @@ final class Plugin {
 		Frontend::init();
 		Stock::init();
 		Batch_Notes::init();
-	}
-
-	/**
-	 * Loads the bundled translations from /languages.
-	 *
-	 * Language packs from translate.wordpress.org (in wp-content/languages)
-	 * take precedence; the bundled files are the fallback. Runs on `init`
-	 * because WordPress 6.7+ warns about loading translations earlier.
-	 */
-	public static function load_textdomain() {
-		load_plugin_textdomain(
-			'brew-log-for-brewfather',
-			false,
-			dirname( plugin_basename( BLFB_PLUGIN_FILE ) ) . '/languages'
-		);
 	}
 
 	/**

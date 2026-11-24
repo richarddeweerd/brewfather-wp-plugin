@@ -6,7 +6,7 @@ A WordPress plugin that shows your [Brewfather](https://brewfather.app) recipes,
 - Ingredients that you can hide from visitors or from logged-in users
 - Stock that only brewers can see
 - Notes on batches, added by logged-in users
-- English and Dutch
+- Ready for translation, with a Dutch translation in the repository
 
 Requires WordPress 6.4+ and PHP 7.4+.
 

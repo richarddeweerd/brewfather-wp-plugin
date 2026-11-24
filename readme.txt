@@ -4,7 +4,7 @@ Tags: brewfather, homebrew, beer, recipes, brewing
 Requires at least: 6.4
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.1.3
+Stable tag: 0.1.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -47,6 +47,9 @@ Visitors and logged-in users see recipes and batches. You can hide the ingredien
 Brewfather data is cached for the cache timeout (60 minutes by default). Click "Clear cache now" in the settings to fetch it again right away.
 
 == Changelog ==
+
+= 0.1.4 =
+* Translations now come from translate.wordpress.org instead of being bundled.
 
 = 0.1.3 =
 * A page with several shortcodes now shows an opened recipe or batch once instead of once per shortcode.
