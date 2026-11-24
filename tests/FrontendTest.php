@@ -174,6 +174,19 @@ class FrontendTest extends TestCase {
 		$this->assertStringContainsString( '?recipe=r1', $html );
 	}
 
+	public function test_view_shows_once_per_page() {
+		$_GET['batch'] = 'b';
+		queue_response( 200, $this->batch( 'b', 22, 'Conditioning', 1000 ) );
+
+		$first  = Frontend::batches_shortcode( array( 'status' => 'conditioning' ) );
+		$second = Frontend::batches_shortcode( array( 'status' => 'completed' ) );
+		$third  = Frontend::recipes_shortcode();
+
+		$this->assertStringContainsString( '#22 · Doppelbock', $first );
+		$this->assertSame( '', $second );
+		$this->assertSame( '', $third );
+	}
+
 	public function test_batch_view_has_a_hook_for_batch_notes() {
 		$_GET['batch'] = 'b';
 		queue_response( 200, $this->batch( 'b', 22, 'Conditioning', 1000 ) );

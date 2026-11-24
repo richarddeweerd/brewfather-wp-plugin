@@ -31,7 +31,7 @@ A typical setup has four pages. Each one only needs a shortcode block.
 
 Put the archive on its own page with `[brewfather_batches status="archived"]`.
 
-Clicking a batch opens it on the same page, and the back link returns to the list. Note that when a page has several shortcodes, as "On tap" does, each one shows the opened batch, so it appears more than once. Keep pages people click through from to a single shortcode, or link to batches on the Brew log page instead (see [Sharing one batch](#3-sharing-one-batch)).
+Clicking a batch opens it on the same page, and the back link returns to the list. On a page with several shortcodes, such as "On tap", the batch shows once, in place of the first list, and the other lists are hidden.
 
 **Brewery.** Set the page to **Private** (or use a members plugin). Brewers see everything; anyone else sees nothing from `[brewfather_stock]`:
 

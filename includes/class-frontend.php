@@ -23,6 +23,14 @@ defined( 'ABSPATH' ) || exit;
 final class Frontend {
 
 	/**
+	 * Whether a shortcode on this page already showed the requested view.
+	 *
+	 * @var bool
+	 */
+	private static $view_shown = false;
+
+
+	/**
 	 * Query argument that opens a Recipe view.
 	 */
 	const RECIPE_ARG = 'recipe';
@@ -54,7 +62,11 @@ final class Frontend {
 	 * @return string
 	 */
 	public static function recipes_shortcode() {
-		return self::wrap( self::view_from_request() ?? self::recipe_list() );
+		if ( self::is_view_request() ) {
+			return self::view_once();
+		}
+
+		return self::wrap( self::recipe_list() );
 	}
 
 	/**
@@ -66,7 +78,42 @@ final class Frontend {
 	public static function batches_shortcode( $atts ) {
 		$atts = shortcode_atts( array( 'status' => '' ), $atts, 'brewfather_batches' );
 
-		return self::wrap( self::view_from_request() ?? self::batch_list( $atts['status'] ) );
+		if ( self::is_view_request() ) {
+			return self::view_once();
+		}
+
+		return self::wrap( self::batch_list( $atts['status'] ) );
+	}
+
+	/**
+	 * Whether the page has ?recipe=<id> or ?batch=<id>.
+	 *
+	 * @return bool
+	 */
+	public static function is_view_request() {
+		return '' !== self::id_from_request( self::RECIPE_ARG ) || '' !== self::id_from_request( self::BATCH_ARG );
+	}
+
+	/**
+	 * The requested Recipe or Batch view for the first shortcode on the page,
+	 * and nothing for the others, so a page with several lists shows it once.
+	 *
+	 * @return string
+	 */
+	private static function view_once() {
+		if ( self::$view_shown ) {
+			return '';
+		}
+		self::$view_shown = true;
+
+		return self::wrap( (string) self::view_from_request() );
+	}
+
+	/**
+	 * Forgets that the view was shown. For tests.
+	 */
+	public static function reset() {
+		self::$view_shown = false;
 	}
 
 	/**

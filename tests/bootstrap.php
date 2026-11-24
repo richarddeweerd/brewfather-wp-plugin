@@ -17,6 +17,9 @@ require dirname( __DIR__ ) . '/vendor/autoload.php';
  * Resets all fake WordPress state.
  */
 function reset_wp() {
+	if ( class_exists( 'BrewLogForBrewfather\\Frontend', false ) ) {
+		BrewLogForBrewfather\Frontend::reset();
+	}
 	$GLOBALS['blfb_test'] = array(
 		'options'    => array(),
 		'transients' => array(), // name => array( value, expiration ).
