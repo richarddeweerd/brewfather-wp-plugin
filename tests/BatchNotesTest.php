@@ -130,6 +130,7 @@ class BatchNotesTest extends TestCase {
 		$GLOBALS['blfb_test']['current'] = $this->author;
 		queue_response( 200, $this->batch() );
 		$author_html = Frontend::batches_shortcode( array() );
+		Frontend::reset();
 
 		$GLOBALS['blfb_test']['current'] = $this->brewer;
 		$brewer_html                     = Frontend::batches_shortcode( array() );
