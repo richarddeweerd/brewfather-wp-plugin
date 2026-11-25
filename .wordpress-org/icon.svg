@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a2614"/><stop offset="1" stop-color="#1f140a"/></linearGradient>
+    <linearGradient id="beer" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6b93b"/><stop offset="1" stop-color="#c8741a"/></linearGradient>
+    <clipPath id="glass"><path d="M78 70 L178 70 L166 214 Q165 222 157 222 L99 222 Q91 222 90 214 Z"/></clipPath>
+  </defs>
+  <rect width="256" height="256" rx="48" fill="url(#bg)"/>
+  <g clip-path="url(#glass)">
+    <rect x="70" y="70" width="120" height="160" fill="url(#beer)"/>
+    <rect x="96" y="80" width="10" height="134" fill="#fff" opacity=".18"/>
+    <circle cx="128" cy="190" r="4" fill="#fff" opacity=".45"/>
+    <circle cx="146" cy="160" r="3" fill="#fff" opacity=".45"/>
+    <circle cx="120" cy="140" r="3.5" fill="#fff" opacity=".45"/>
+    <circle cx="150" cy="118" r="2.5" fill="#fff" opacity=".45"/>
+  </g>
+  <path d="M74 76 Q72 52 96 52 Q104 34 126 40 Q144 28 160 44 Q186 44 182 76 Z" fill="#fff6e3"/>
+  <path d="M78 70 L178 70 L166 214 Q165 222 157 222 L99 222 Q91 222 90 214 Z" fill="none" stroke="#fff6e3" stroke-width="6" stroke-linejoin="round"/>
+</svg>
